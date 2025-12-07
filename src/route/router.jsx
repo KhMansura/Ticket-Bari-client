@@ -1,38 +1,101 @@
-// import { createBrowserRouter } from "react-router";
-// import RootLayout from "../layout/RootLayout";
-// import Home from "../Pages/Home/Home";
+
+// router.jsx
+// import { createBrowserRouter } from "react-router-dom";
+// // import RootLayout from "../Layout/RootLayout.jsx";
+// import Home from "../Pages/Home/Home.jsx";
+// import RootLayout from "../Layout/RootLayout.jsx";
+// import AddTicket from "../Pages/Dashboard/Vendor/AddTicket.jsx";
+// // import RootLayout from "../layout/RootLayout.jsx";
 
 // export const router = createBrowserRouter([
 //   {
 //     path: "/",
-//     Component:RootLayout,
-//     children:[
-//         {
-//             index: true,
-//             Component: Home
-
-
+//     element:<RootLayout></RootLayout>,
+//     children: [
+//       {
+//         index: true,
+//        element:<Home></Home>,
+// },
+//       {
+//             path: "add-ticket",
+//             element: <AddTicket></AddTicket>
 //         },
-//     ]
+//     ],
 //   },
 // ]);
-
-// router.jsx
 import { createBrowserRouter } from "react-router-dom";
-// import RootLayout from "../Layout/RootLayout.jsx";
-import Home from "../Pages/Home/Home.jsx";
 import RootLayout from "../Layout/RootLayout.jsx";
-// import RootLayout from "../layout/RootLayout.jsx";
+import DashboardLayout from "../Layout/DashboardLayout.jsx"; // Added missing import
+import Home from "../Pages/Home/Home.jsx";
+// import Login from "../Pages/Login/Login.jsx"; // Added missing import
+// import Register from "../Pages/Register/Register.jsx"; // Added missing import
+import AddTicket from "../Pages/Dashboard/Vendor/AddTicket.jsx";
+import MyBookedTickets from "../Pages/Dashboard/User/MyBookedTickets.jsx";
+import Login from "../Pages/Login/Login.jsx";
+import Register from "../Pages/Register.jsx";
+import TicketDetails from "../Pages/TicketDetails/TicketDetails.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
+import AllTickets from "../Pages/AllTickets/AllTickets.jsx";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers.jsx";
+import Profile from "../Pages/Dashboard/Profile/Profile.jsx";
+import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element:<RootLayout></RootLayout>,
+    element: <RootLayout></RootLayout>,
     children: [
       {
-        index: true,
-       element:<Home></Home>,
+        path: "/",
+        element: <Home></Home>,
       },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+      { 
+        path: "all-tickets", 
+        element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> 
+      },
+      {
+        path: "ticket/:id",
+        element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 
+        loader: ({params}) => fetch(`http://localhost:5000/tickets/${params.id}`)
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children: [
+      // DEFAULT:
+      { path: "", element: <Profile></Profile> }, 
+
+      // PROFILES (Link all to the same generic Profile page for now)
+      { path: "user-profile", element: <Profile></Profile> },
+      { path: "vendor-profile", element: <Profile></Profile> },
+      { path: "admin-profile", element: <Profile></Profile> },
+      // User Routes
+      {
+        path: "my-booked-tickets",
+        element: <MyBookedTickets></MyBookedTickets>,
+      },
+
+      // Vendor Routes
+      { 
+            path: "my-added-tickets", 
+            element: <MyAddedTickets></MyAddedTickets> 
+        },
+      {
+        path: "add-ticket",
+        element: <AddTicket></AddTicket>,
+      },
+      // ADMIN ROUTES
+      { path: "manage-users", element: <ManageUsers></ManageUsers> },
     ],
   },
 ]);
