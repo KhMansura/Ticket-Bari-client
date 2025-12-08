@@ -19,6 +19,8 @@ import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
 import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 import VendorHome from "../Pages/Dashboard/Vendor/VendorHome.jsx";
+import About from "../Pages/About/About.jsx";
+import Contact from "../Pages/Contact/Contact.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,8 @@ export const router = createBrowserRouter([
       { path: "login", element: <Login></Login>},
       { path: "register",element: <Register></Register>},
       { path: "all-tickets", element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> },
+      { path: "about", element: <About></About> },
+      { path: "contact", element: <Contact></Contact> },
       {
         path: "ticket/:id",
         element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 

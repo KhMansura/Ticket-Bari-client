@@ -1,4 +1,5 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaStripe, FaCcVisa, FaCcMastercard, FaBus } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
     return (
@@ -18,10 +19,14 @@ const Footer = () => {
                 {/* Column 2: Quick Links */}
                 <nav className="flex flex-col gap-2">
                     <header className="footer-title text-white opacity-100">Quick Links</header> 
-                    <a className="link link-hover">Home</a>
+                    {/* <a className="link link-hover">Home</a>
                     <a className="link link-hover">All Tickets</a>
                     <a className="link link-hover">About Us</a>
-                    <a className="link link-hover">Contact</a>
+                    <a className="link link-hover">Contact</a> */}
+                    <Link to="/" className="link link-hover">Home</Link>
+                    <Link to="/all-tickets" className="link link-hover">All Tickets</Link>
+                    <Link to="/about" className="link link-hover">About Us</Link>
+                    <Link to="/contact" className="link link-hover">Contact</Link>
                 </nav> 
 
                 {/* Column 3: Contact Info */}
