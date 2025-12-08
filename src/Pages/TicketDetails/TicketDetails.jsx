@@ -118,18 +118,44 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
-// import axios from "axios"; <--- Remove this
 import Swal from "sweetalert2";
-import useAxiosSecure from "../../hooks/useAxiosSecure"; // 1. Import Hook
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const TicketDetails = () => {
     const ticket = useLoaderData(); 
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [bookingQty, setBookingQty] = useState(1);
-    const axiosSecure = useAxiosSecure(); // 2. Use Hook
+    const axiosSecure = useAxiosSecure();
+
+    // Countdown State
+    const [timeLeft, setTimeLeft] = useState("");
+    const [isExpired, setIsExpired] = useState(false);
     
     const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate, vendorEmail } = ticket;
+
+    // --- COUNTDOWN LOGIC ---
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const difference = +new Date(departureDate) - +new Date();
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((difference / 1000 / 60) % 60);
+                const seconds = Math.floor((difference / 1000) % 60);
+                setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+                setIsExpired(false);
+            } else {
+                setTimeLeft("Departure Time Passed");
+                setIsExpired(true);
+            }
+        };
+
+        const timer = setInterval(calculateTimeLeft, 1000);
+        calculateTimeLeft();
+
+        return () => clearInterval(timer);
+    }, [departureDate]);
 
     const handleBookTicket = async () => {
         if(bookingQty > quantity) {
@@ -152,7 +178,7 @@ const TicketDetails = () => {
             status: 'pending'
         }
 
-        // 3. Use axiosSecure (No need to manually add headers)
+        // 3. Use axiosSecure
         const res = await axiosSecure.post('/bookings', bookingData);
 
         if(res.data.insertedId){
@@ -170,6 +196,12 @@ const TicketDetails = () => {
                 </figure>
                 <div className="card-body lg:w-1/2">
                     <h2 className="card-title text-4xl mb-4">{title}</h2>
+
+                    {/* Countdown Badge */}
+                    <div className={`badge badge-lg p-4 mb-4 ${isExpired ? 'badge-error text-white' : 'badge-primary'}`}>
+                        {timeLeft}
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         <div className="badge badge-lg badge-outline p-4">{transportType}</div>
                         <div className="text-2xl font-bold text-primary">${price} <span className="text-sm text-gray-500">/seat</span></div>
@@ -188,8 +220,10 @@ const TicketDetails = () => {
 
                     <div className="card-actions justify-end mt-8">
                         {/* Open Modal Button */}
-                        <button className="btn btn-primary w-full" onClick={()=>document.getElementById('booking_modal').showModal()}>
-                            Book Now
+                        <button className="btn btn-primary w-full"
+                        disabled={quantity === 0 || isExpired} 
+                        onClick={()=>document.getElementById('booking_modal').showModal()}>
+                           {isExpired ? "Expired" : quantity === 0 ? "Sold Out" : "Book Now"}
                         </button>
                     </div>
                 </div>
