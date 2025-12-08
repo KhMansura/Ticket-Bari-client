@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../providers/AuthProviders"; // Check spelling carefully!
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
 
@@ -20,9 +19,21 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                Swal.fire({ title: 'User Login Successful', showConfirmButton: false, timer: 1500 });
+                Swal.fire({ title: 'User Login Successful',
+                    icon: 'success', 
+                    showConfirmButton: false, 
+                    timer: 1500 });
                 navigate(from, { replace: true });
             })
+            // 1. ADDED ERROR HANDLING
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: error.message,
+                    icon: 'error',
+                    confirmButtonText: 'Try Again'
+                });
+            });
     }
 
     const handleGoogleLogin = () => {
@@ -31,6 +42,9 @@ const Login = () => {
                 const user = result.user;
                 navigate(from, { replace: true });
             })
+            .catch(error => {
+                Swal.fire('Error', error.message, 'error');
+            });
     }
 
     return (
@@ -49,6 +63,9 @@ const Login = () => {
                         <div className="form-control">
                             <label className="label"><span className="label-text">Password</span></label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" />
+                            <label className="label">
+                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            </label>
                         </div>
                         <div className="form-control mt-6">
                             <input className="btn btn-primary" type="submit" value="Login" />

@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import TicketCard from "../../components/TicketCard";
 import axios from "axios";
@@ -15,6 +14,7 @@ const Home = () => {
         const approved = res.data.filter(t => t.verificationStatus === 'approved');
         setLatestTickets(approved.slice(0, 6)); 
       });
+      
       axios.get('http://localhost:5000/tickets/advertised')
         .then(res => setAdvertisedTickets(res.data));
   }, []);
@@ -34,13 +34,22 @@ const Home = () => {
       </div>
 
       {/* 2. Advertisement Section (Admin Choice) */}
-      <div className="max-w-7xl mx-auto py-12 px-4">
+      {/* <div className="max-w-7xl mx-auto py-12 px-4">
         <h2 className="text-3xl font-bold text-center mb-8">Featured Trips 🌟</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
              {/* Map through 'advertised' tickets here later */}
-             {latestTickets.slice(0,3).map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)}
+             {/* {latestTickets.slice(0,3).map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)} */}
+             {/* {advertisedTickets.map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)}
         </div>
-      </div>
+      </div>  */}
+      {advertisedTickets.length > 0 && (
+        <div className="max-w-7xl mx-auto py-12 px-4 bg-yellow-50 rounded-xl my-10">
+          <h2 className="text-3xl font-bold text-center mb-8">Featured Trips 🌟</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {advertisedTickets.map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)}
+          </div>
+        </div>
+      )}
 
       {/* 3. Latest Tickets Section */}
       <div className="bg-gray-50 py-12">
