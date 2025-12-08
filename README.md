@@ -1,16 +1,47 @@
-# React + Vite
+# 🚌 TicketBari - MERN Stack Ticket Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TicketBari is a full-stack web application designed for booking bus, train, launch, and flight tickets. It features a multi-role system (User, Vendor, Admin) with secure payments, dashboard analytics, and real-time status updates.
 
-Currently, two official plugins are available:
+## 🔗 Live Demo
+**(Paste your deployed link here, e.g., https://ticketbari.web.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 👤 User Features
+* **Secure Authentication:** Login/Register using Email & Password or Google.
+* **Browse & Filter:** Search tickets by location, transport type, or price.
+* **Booking System:** Book tickets and view booking status (Pending/Approved).
+* **Payment Gateway:** Secure payments via Stripe for approved tickets.
+* **History:** View past booking history and payment transactions.
 
-## Expanding the ESLint configuration
+### 🏪 Vendor Features
+* **Dashboard:** Visual analytics (Charts) showing total revenue, sales, and tickets.
+* **Ticket Management:** Add new tickets with images (hosted on ImgBB).
+* **Order Management:** Accept or Reject booking requests from users.
+* **My Tickets:** View and delete tickets they created.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛡️ Admin Features
+* **User Management:** View all users and promote them to Admin or Vendor roles.
+* **Ticket Approval:** Approve or Reject new tickets posted by Vendors.
+* **Advertisement System:** Toggle "Advertise" on tickets to feature them on the Home page.
+
+---
+
+## 🛠️ Technologies Used
+
+* **Frontend:** React.js, Tailwind CSS, DaisyUI, Recharts (Analytics), Axios, Stripe.js.
+* **Backend:** Node.js, Express.js, JWT (Authentication).
+* **Database:** MongoDB (CRUD operations, Aggregation).
+* **Image Hosting:** ImgBB API.
+* **Payment:** Stripe Payment Gateway.
+
+---
+
+## ⚙️ How to Run Locally
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/KhMansura/Ticket-Bari-client
+cd ticket-bari
