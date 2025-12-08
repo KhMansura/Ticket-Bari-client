@@ -1,11 +1,27 @@
 import { useEffect, useState } from "react";
 import TicketCard from "../../components/TicketCard";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const Home = () => {
   const [latestTickets, setLatestTickets] = useState([]);
   const [advertisedTickets, setAdvertisedTickets] = useState([]);
+  const navigate = useNavigate();
 
+  const handleSubscribe = () => {
+      // Show success alert first, then redirect
+      Swal.fire({
+          title: "Subscribed!",
+          text: "Thank you for joining us.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+      }).then(() => {
+          // Redirect to the new success page
+          navigate("/subscription-success");
+      });
+    }
   
   useEffect(() => {
     // Ensure your server has this route: app.get('/tickets/latest', ...)
@@ -34,14 +50,6 @@ const Home = () => {
       </div>
 
       {/* 2. Advertisement Section (Admin Choice) */}
-      {/* <div className="max-w-7xl mx-auto py-12 px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">Featured Trips 🌟</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             {/* Map through 'advertised' tickets here later */}
-             {/* {latestTickets.slice(0,3).map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)} */}
-             {/* {advertisedTickets.map(ticket => <TicketCard key={ticket._id} ticket={ticket} />)}
-        </div>
-      </div>  */}
       {advertisedTickets.length > 0 && (
         <div className="max-w-7xl mx-auto py-12 px-4 bg-yellow-50 rounded-xl my-10">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Trips 🌟</h2>
@@ -79,6 +87,22 @@ const Home = () => {
                 <div className="text-4xl mb-2">📞</div>
                 <h3 className="font-bold">24/7 Support</h3>
             </div>
+            {/* 5. Extra Section: Newsletter */}
+      <div className="bg-base-200 py-16">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Get Updates on New Routes! 📩</h2>
+            <p className="mb-6 text-gray-500">Subscribe to our newsletter to get the latest ticket offers and updates directly to your inbox.</p>
+            
+            <div className="join w-full justify-center">
+                <input className="input input-bordered join-item w-full max-w-xs" placeholder="Enter your email" />
+                <button 
+                    onClick={handleSubscribe} 
+                    className="btn btn-primary join-item">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const TicketCard = ({ ticket }) => {
-  const { _id, title, from, to, transportType, price, quantity, perks, photo } = ticket;
+  const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate } = ticket;
 
   return (
     <div className="card bg-base-100 shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300">

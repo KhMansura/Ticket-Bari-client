@@ -21,6 +21,7 @@ import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 import VendorHome from "../Pages/Dashboard/Vendor/VendorHome.jsx";
 import About from "../Pages/About/About.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
+import SubscriptionSuccess from "../Pages/Subscription/SubscriptionSuccess.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
       { path: "all-tickets", element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> },
       { path: "about", element: <About></About> },
       { path: "contact", element: <Contact></Contact> },
+      { path: "subscription-success", element: <SubscriptionSuccess></SubscriptionSuccess> },
       {
         path: "ticket/:id",
         element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 
