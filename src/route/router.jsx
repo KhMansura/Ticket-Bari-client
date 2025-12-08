@@ -17,6 +17,7 @@ import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
 import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBooking.jsx";
 import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,7 @@ export const router = createBrowserRouter([
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
       { path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },
       { path: "payment", element: <Payment></Payment> },
+      { path: "history", element: <PaymentHistory></PaymentHistory> },
     ],
   },
 ]);
