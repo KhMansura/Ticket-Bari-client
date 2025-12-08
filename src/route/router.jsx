@@ -14,39 +14,28 @@ import AllTickets from "../Pages/AllTickets/AllTickets.jsx";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers.jsx";
 import Profile from "../Pages/Dashboard/Profile/Profile.jsx";
 import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
-import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBooking.jsx";
+import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBookings.jsx";
 import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
 import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
+import VendorHome from "../Pages/Dashboard/Vendor/VendorHome.jsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
     children: [
-      {
-        path: "/",
-        element: <Home></Home>,
-      },
-      {
-        path: "login",
-        element: <Login></Login>,
-      },
-      {
-        path: "register",
-        element: <Register></Register>,
-      },
-      { 
-        path: "all-tickets", 
-        element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> 
-      },
+      { path: "/", element: <Home></Home>},
+      { path: "login", element: <Login></Login>},
+      { path: "register",element: <Register></Register>},
+      { path: "all-tickets", element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> },
       {
         path: "ticket/:id",
         element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 
         loader: ({params}) => fetch(`http://localhost:5000/tickets/${params.id}`)
       },
-    ],
-  },
+    
+
   {
     path: "dashboard",
     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
@@ -54,31 +43,27 @@ export const router = createBrowserRouter([
       // DEFAULT:
       { path: "", element: <Profile></Profile> }, 
 
-      // PROFILES (Link all to the same generic Profile page for now)
-      { path: "user-profile", element: <Profile></Profile> },
-      { path: "vendor-profile", element: <Profile></Profile> },
+      // PROFILES
       { path: "admin-profile", element: <Profile></Profile> },
+      
       // User Routes
-      {
-        path: "my-booked-tickets",
-        element: <MyBookedTickets></MyBookedTickets>,
-      },
+      { path: "user-profile", element: <Profile></Profile> },
+      { path: "my-booked-tickets", element: <MyBookedTickets></MyBookedTickets>},
+      { path: "payment", element: <Payment></Payment> },
+      { path: "history", element: <PaymentHistory></PaymentHistory> },
 
       // Vendor Routes
-      { 
-            path: "my-added-tickets", 
-            element: <MyAddedTickets></MyAddedTickets> 
-        },
-      {
-        path: "add-ticket",
-        element: <AddTicket></AddTicket>,
-      },
+      { path: "vendor-profile", element: <VendorHome></VendorHome> },
+      { path: "my-added-tickets", element: <MyAddedTickets></MyAddedTickets> },
+      {path: "add-ticket",element: <AddTicket></AddTicket>},
+      { path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },
+     
       // ADMIN ROUTES
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
-      { path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },
-      { path: "payment", element: <Payment></Payment> },
-      { path: "history", element: <PaymentHistory></PaymentHistory> },
+    ]
+  }
+      
     ],
   },
 ]);
