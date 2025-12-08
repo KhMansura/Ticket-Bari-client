@@ -58,8 +58,15 @@ const MyBookedTickets = () => {
                                     </span>
                                 </td>
                                 <td>
-                                    {item.status === 'approved' ? 
+                                    {/* {item.status === 'approved' ? 
                                         <button className="btn btn-sm btn-success">Pay Now</button> 
+                                        : 
+                                        <button className="btn btn-sm btn-disabled">Pending</button>
+                                    } */}
+                                    {item.status === 'approved' ? 
+                                        <Link to="/dashboard/payment" state={item}>
+                                            <button className="btn btn-sm btn-success">Pay Now</button>
+                                        </Link>
                                         : 
                                         <button className="btn btn-sm btn-disabled">Pending</button>
                                     }
