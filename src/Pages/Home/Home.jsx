@@ -1,23 +1,22 @@
-// import React from 'react'
 
-// export default function Home () {
-//   return <h1>Home</h1>;
-//     }
 import { useEffect, useState } from "react";
 import TicketCard from "../../components/TicketCard";
 import axios from "axios";
 
 const Home = () => {
   const [latestTickets, setLatestTickets] = useState([]);
+  const [advertisedTickets, setAdvertisedTickets] = useState([]);
 
-  // Fetch data from your server
+  
   useEffect(() => {
     // Ensure your server has this route: app.get('/tickets/latest', ...)
     axios.get('http://localhost:5000/tickets') 
       .then(res => {
-        // For now, just taking the first 6 as "latest"
-        setLatestTickets(res.data.slice(0, 6)); 
-      })
+        const approved = res.data.filter(t => t.verificationStatus === 'approved');
+        setLatestTickets(approved.slice(0, 6)); 
+      });
+      axios.get('http://localhost:5000/tickets/advertised')
+        .then(res => setAdvertisedTickets(res.data));
   }, []);
 
   return (

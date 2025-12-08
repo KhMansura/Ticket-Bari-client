@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { FaBullhorn } from "react-icons/fa";
 
 const ManageTickets = () => {
     const [tickets, setTickets] = useState([]);
@@ -24,6 +25,19 @@ const ManageTickets = () => {
                 }
             })
     };
+    const handleAdvertise = (ticket) => {
+        const newStatus = !ticket.isAdvertised; // Toggle status
+
+        axiosSecure.patch(`/tickets/advertise/${ticket._id}`, { isAdvertised: newStatus })
+            .then(res => {
+                if(res.data.message === 'limit_reached'){
+                    Swal.fire('Limit Reached', 'You can only advertise 6 tickets at a time.', 'warning');
+                } else if(res.data.modifiedCount > 0){
+                    Swal.fire('Success', newStatus ? 'Ticket is now Advertised!' : 'Removed from Advertisement', 'success');
+                    fetchTickets(); // Refresh the list to show the new color
+                }
+            })
+    }
 
     return (
         <div className="w-full px-4">
@@ -36,6 +50,7 @@ const ManageTickets = () => {
                             <th>Title</th>
                             <th>Vendor</th>
                             <th>Status</th>
+                            <th>Advertise</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -55,6 +70,17 @@ const ManageTickets = () => {
                                     <span className={`badge ${ticket.verificationStatus === 'approved' ? 'badge-success' : 'badge-warning'}`}>
                                         {ticket.verificationStatus || 'pending'}
                                     </span>
+                                </td>
+                                {/* 4. BUTTON COLUMN ADDED HERE */}
+                                <td>
+                                    {ticket.verificationStatus === 'approved' && (
+                                        <button 
+                                            onClick={() => handleAdvertise(ticket)}
+                                            className={`btn btn-sm ${ticket.isAdvertised ? 'btn-accent' : 'btn-outline'}`}
+                                            title="Toggle Advertisement">
+                                            <FaBullhorn /> {ticket.isAdvertised ? 'Advertised' : 'Advertise'}
+                                        </button>
+                                    )}
                                 </td>
                                 <td>
                                     {ticket.verificationStatus !== 'approved' && (
