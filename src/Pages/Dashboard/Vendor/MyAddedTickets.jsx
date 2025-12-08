@@ -3,10 +3,12 @@ import { AuthContext } from "../../../providers/AuthProviders"; // Adjust path i
 import axios from "axios";
 import Swal from "sweetalert2";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const MyAddedTickets = () => {
     const { user } = useContext(AuthContext);
     const [tickets, setTickets] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         if (user?.email) {
@@ -16,8 +18,11 @@ const MyAddedTickets = () => {
 
     const fetchMyTickets = () => {
         // We will update server to handle "?email=" query in Step 3
-        axios.get(`http://localhost:5000/tickets/vendor/${user.email}`)
-            .then(res => setTickets(res.data));
+        // axios.get(`http://localhost:5000/tickets/vendor/${user.email}`)
+        //     .then(res => setTickets(res.data));
+        axiosSecure.get(`/tickets/vendor/${user.email}`)
+            .then(res => setTickets(res.data))
+            .catch(err => console.error(err));
     }
 
     const handleDelete = (id) => {
@@ -31,7 +36,8 @@ const MyAddedTickets = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/tickets/${id}`)
+                // axios.delete(`http://localhost:5000/tickets/${id}`)
+                axiosSecure.delete(`/tickets/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             Swal.fire('Deleted!', 'Your ticket has been deleted.', 'success');

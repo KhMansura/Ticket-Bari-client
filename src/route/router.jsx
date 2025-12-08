@@ -1,34 +1,9 @@
 
 // router.jsx
-// import { createBrowserRouter } from "react-router-dom";
-// // import RootLayout from "../Layout/RootLayout.jsx";
-// import Home from "../Pages/Home/Home.jsx";
-// import RootLayout from "../Layout/RootLayout.jsx";
-// import AddTicket from "../Pages/Dashboard/Vendor/AddTicket.jsx";
-// // import RootLayout from "../layout/RootLayout.jsx";
-
-// export const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element:<RootLayout></RootLayout>,
-//     children: [
-//       {
-//         index: true,
-//        element:<Home></Home>,
-// },
-//       {
-//             path: "add-ticket",
-//             element: <AddTicket></AddTicket>
-//         },
-//     ],
-//   },
-// ]);
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../Layout/RootLayout.jsx";
-import DashboardLayout from "../Layout/DashboardLayout.jsx"; // Added missing import
+import DashboardLayout from "../Layout/DashboardLayout.jsx";
 import Home from "../Pages/Home/Home.jsx";
-// import Login from "../Pages/Login/Login.jsx"; // Added missing import
-// import Register from "../Pages/Register/Register.jsx"; // Added missing import
 import AddTicket from "../Pages/Dashboard/Vendor/AddTicket.jsx";
 import MyBookedTickets from "../Pages/Dashboard/User/MyBookedTickets.jsx";
 import Login from "../Pages/Login/Login.jsx";
@@ -39,6 +14,8 @@ import AllTickets from "../Pages/AllTickets/AllTickets.jsx";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers.jsx";
 import Profile from "../Pages/Dashboard/Profile/Profile.jsx";
 import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
+import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBooking.jsx";
+import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +73,8 @@ export const router = createBrowserRouter([
       },
       // ADMIN ROUTES
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
+      { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
+{ path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },
     ],
   },
 ]);
