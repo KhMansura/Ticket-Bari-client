@@ -34,7 +34,7 @@ const DashboardLayout = () => {
     // TEMPORARY FIX: Manually set role to 'vendor', 'admin', or 'user' to test.
     // Once you create the useRole hook later, you can uncomment the real line.
     // const role = 'vendor'; 
-    const [role] = useRole(); // <--- Keep this commented out for now
+    const [role] = useRole();
 
     return (
         <div className="drawer lg:drawer-open">
@@ -67,16 +67,18 @@ const DashboardLayout = () => {
                     } */}
                     {
                         role === 'admin' ? <>
+                        {/* admin links */}
                             <li><Link to="/dashboard/manage-users"><FaUsers /> Manage Users</Link></li>
-                            {/* NEW ADMIN LINK: */}
                             <li><Link to="/dashboard/manage-tickets"><FaTicketAlt /> Manage Tickets</Link></li>
                         </> : role === 'vendor' ? <>
+                        {/* vendor links */}
                             <li><Link to="/dashboard/add-ticket"><FaPlusCircle /> Add Ticket</Link></li>
                             <li><Link to="/dashboard/my-added-tickets"><FaTicketAlt /> My Added Tickets</Link></li>
-                            {/* NEW VENDOR LINK: */}
                             <li><Link to="/dashboard/requested-bookings"><FaBook /> Requested Bookings</Link></li>
                         </> : <>
+                        {/* user links */}
                             <li><Link to="/dashboard/my-booked-tickets"><FaBook /> My Booked Tickets</Link></li>
+                            <li><Link to="/dashboard/payment-history"><FaWallet/> Payment History</Link></li>
                         </>
                     }
                     

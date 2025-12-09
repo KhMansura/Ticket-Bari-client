@@ -78,7 +78,7 @@
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FaUserShield, FaStore } from "react-icons/fa"; // Added FaStore icon
+import { FaUserShield, FaStore, FaUser } from "react-icons/fa"; // Added FaStore icon
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -150,6 +150,15 @@ const ManageUsers = () => {
                                             className="btn btn-xs btn-warning text-white"
                                             title="Make Vendor">
                                             <FaStore/> Vendor
+                                        </button> 
+                                    }
+                                    {/* 3. MAKE USER BUTTON (Show if NOT User) - Demote option */}
+                                    { user.role !== 'user' && user.role && 
+                                        <button 
+                                            onClick={() => handleMakeRole(user, 'user')} 
+                                            className="btn btn-xs btn-success text-white"
+                                            title="Make Normal User">
+                                            <FaUser/> User
                                         </button> 
                                     }
                                 </td>

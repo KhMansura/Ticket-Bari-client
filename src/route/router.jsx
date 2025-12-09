@@ -17,11 +17,12 @@ import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
 import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBookings.jsx";
 import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
-import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
+// import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 import VendorHome from "../Pages/Dashboard/Vendor/VendorHome.jsx";
 import About from "../Pages/About/About.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
 import SubscriptionSuccess from "../Pages/Subscription/SubscriptionSuccess.jsx";
+import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
       { path: "user-profile", element: <Profile></Profile> },
       { path: "my-booked-tickets", element: <MyBookedTickets></MyBookedTickets>},
       { path: "payment", element: <Payment></Payment> },
-      { path: "history", element: <PaymentHistory></PaymentHistory> },
+      { path: "payment-history", element: <PaymentHistory></PaymentHistory> },
 
       // Vendor Routes
       { path: "vendor-profile", element: <VendorHome></VendorHome> },

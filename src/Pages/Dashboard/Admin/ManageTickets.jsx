@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FaBullhorn } from "react-icons/fa";
+import { FaBullhorn, FaCheck, FaTimes, FaUndo } from "react-icons/fa";
 
 const ManageTickets = () => {
     const [tickets, setTickets] = useState([]);
@@ -88,6 +88,7 @@ const ManageTickets = () => {
                                             onClick={() => handleStatus(ticket, 'approved')} 
                                             className="btn btn-xs btn-success text-white mr-2">
                                             Approve
+                                            <FaCheck></FaCheck>
                                         </button>
                                     )}
                                     {ticket.verificationStatus !== 'rejected' && (
@@ -95,6 +96,17 @@ const ManageTickets = () => {
                                             onClick={() => handleStatus(ticket, 'rejected')} 
                                             className="btn btn-xs btn-error text-white">
                                             Reject
+                                            <FaTimes></FaTimes>
+                                        </button>
+                                    )}
+                                    {/* 3. UNDO BUTTON (New Feature) */}
+                                    {/* Only show if status is NOT 'pending' */}
+                                    {ticket.verificationStatus && ticket.verificationStatus !== 'pending' && (
+                                        <button 
+                                            onClick={() => handleStatus(ticket, 'pending')} 
+                                            className="btn btn-xs btn-neutral text-white"
+                                            title="Reset to Pending">
+                                            <FaUndo /> Undo
                                         </button>
                                     )}
                                 </td>
