@@ -18,14 +18,15 @@ const TicketCard = ({ ticket }) => {
         <p className="text-gray-500 text-sm">
           Route: <span className="font-semibold">{from}</span> ➝ <span className="font-semibold">{to}</span>
         </p>
-        {/* --- NEW: Departure Date (Requirement #3) --- */}
+        {/* --- NEW: Departure Date */}
         <p className="text-sm text-gray-500 flex items-center gap-2 mt-1">
              <FaCalendarAlt /> {new Date(departureDate).toLocaleString()}
         </p>
         
         {/* Perks Section */}
         <div className="flex flex-wrap gap-2 my-2">
-          {perks?.slice(0, 3).map((perk, idx) => (
+          {/* {perks?.slice(0, 3).map((perk, idx) => ( */}
+          {Array.isArray(perks) && perks.slice(0, 3).map((perk, idx) => (
             <span key={idx} className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">{perk}</span>
           ))}
         </div>

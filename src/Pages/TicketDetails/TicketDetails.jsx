@@ -35,6 +35,7 @@ const TicketDetails = () => {
 
     // --- COUNTDOWN LOGIC ---
     useEffect(() => {
+        if(!departureDate) return; // Safety check
         const calculateTimeLeft = () => {
             const difference = +new Date(departureDate) - +new Date();
             if (difference > 0) {
@@ -113,8 +114,15 @@ const TicketDetails = () => {
                     </div>
 
                     <div className="divider">Perks</div>
-                    <div className="flex gap-2 flex-wrap">
+                    {/* <div className="flex gap-2 flex-wrap">
                         {perks?.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)}
+                    </div> */}
+                    <div className="flex gap-2 flex-wrap">
+                        {Array.isArray(perks) ? (
+                            perks.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)
+                        ) : (
+                            <span className="text-gray-500 text-sm">No specific perks listed</span>
+                        )}
                     </div>
 
                     <div className="card-actions justify-end mt-8">
