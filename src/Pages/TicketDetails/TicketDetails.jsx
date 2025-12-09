@@ -15,8 +15,23 @@ const TicketDetails = () => {
     // Countdown State
     const [timeLeft, setTimeLeft] = useState("");
     const [isExpired, setIsExpired] = useState(false);
+    const [alreadyBooked, setAlreadyBooked] = useState(false);
     
     const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate, vendorEmail } = ticket;
+
+    // 1. Check if User already booked this ticket
+    useEffect(() => {
+        if(user?.email) {
+            axiosSecure.get(`/bookings?email=${user.email}`)
+                .then(res => {
+                    // Check if any booking matches this ticket ID
+                    const exists = res.data.find(b => b.ticketId === _id);
+                    if(exists) {
+                        setAlreadyBooked(true);
+                    }
+                })
+        }
+    }, [user, _id, axiosSecure]);
 
     // --- COUNTDOWN LOGIC ---
     useEffect(() => {
@@ -104,10 +119,13 @@ const TicketDetails = () => {
 
                     <div className="card-actions justify-end mt-8">
                         {/* Open Modal Button */}
-                        <button className="btn btn-primary w-full"
-                        disabled={quantity === 0 || isExpired} 
-                        onClick={()=>document.getElementById('booking_modal').showModal()}>
-                           {isExpired ? "Expired" : quantity === 0 ? "Sold Out" : "Book Now"}
+                        <button 
+                            className="btn btn-primary w-full" 
+                            disabled={quantity === 0 || isExpired || alreadyBooked} 
+                            onClick={()=>document.getElementById('booking_modal').showModal()}
+                        >
+                            {/* UPDATE: Button Text */}
+                            {isExpired ? "Expired" : alreadyBooked ? "Already Booked" : quantity === 0 ? "Sold Out" : "Book Now"}
                         </button>
                     </div>
                 </div>

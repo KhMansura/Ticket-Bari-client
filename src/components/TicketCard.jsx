@@ -1,3 +1,4 @@
+import { FaCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const TicketCard = ({ ticket }) => {
@@ -16,6 +17,10 @@ const TicketCard = ({ ticket }) => {
         <h2 className="card-title mt-2">{title}</h2>
         <p className="text-gray-500 text-sm">
           Route: <span className="font-semibold">{from}</span> ➝ <span className="font-semibold">{to}</span>
+        </p>
+        {/* --- NEW: Departure Date (Requirement #3) --- */}
+        <p className="text-sm text-gray-500 flex items-center gap-2 mt-1">
+             <FaCalendarAlt /> {new Date(departureDate).toLocaleString()}
         </p>
         
         {/* Perks Section */}
