@@ -10,7 +10,8 @@ const useRole = () => {
 
     useEffect(() => {
         if (user && !loading) {
-            axiosSecure.get(`/users/role/${user.email}`)
+            // axiosSecure.get(`/users/role/${user.email}`)
+            axiosSecure.get(`/users/role/${user.email}?t=${new Date().getTime()}`)
                 .then(res => {
                     setRole(res.data.role);
                     setIsRoleLoading(false);
