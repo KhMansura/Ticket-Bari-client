@@ -1,4 +1,3 @@
-
 // router.jsx
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "../Layout/RootLayout.jsx";
@@ -17,12 +16,13 @@ import MyAddedTickets from "../Pages/Dashboard/Vendor/MyAddedTickets.jsx";
 import RequestedBookings from "../Pages/Dashboard/Vendor/RequestedBookings.jsx";
 import ManageTickets from "../Pages/Dashboard/Admin/ManageTickets.jsx";
 import Payment from "../Pages/Dashboard/Payment/Payment.jsx";
-// import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 import VendorHome from "../Pages/Dashboard/Vendor/VendorHome.jsx";
 import About from "../Pages/About/About.jsx";
 import Contact from "../Pages/Contact/Contact.jsx";
 import SubscriptionSuccess from "../Pages/Subscription/SubscriptionSuccess.jsx";
 import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory.jsx";
+import UpdateTicket from "../Pages/Dashboard/Vendor/UpdateTicket.jsx";
+import AdvertiseTickets from "../Pages/Dashboard/Admin/AdvertiseTickets.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -65,10 +65,12 @@ export const router = createBrowserRouter([
       { path: "my-added-tickets", element: <MyAddedTickets></MyAddedTickets> },
       {path: "add-ticket",element: <AddTicket></AddTicket>},
       { path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },
+      { path: "update-ticket/:id",element: <UpdateTicket />},
      
       // ADMIN ROUTES
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
+      { path: "advertise-tickets",element: <AdvertiseTickets />},
     ]
   }
       

@@ -27,7 +27,7 @@
 //   </div>
 // );
 import { Link, Outlet } from "react-router-dom"; // FIXED: Added Link
-import { FaBook, FaChartPie, FaHome, FaPlusCircle, FaTicketAlt, FaUser, FaUsers, FaWallet } from "react-icons/fa";
+import { FaBook, FaBullhorn, FaChartPie, FaHome, FaPlusCircle, FaTicketAlt, FaUser, FaUsers, FaWallet } from "react-icons/fa";
 import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
@@ -68,8 +68,10 @@ const DashboardLayout = () => {
                     {
                         role === 'admin' ? <>
                         {/* admin links */}
+                            <li><Link to="/dashboard/user-profile"><FaUser /> Admin Profile</Link></li>
                             <li><Link to="/dashboard/manage-users"><FaUsers /> Manage Users</Link></li>
                             <li><Link to="/dashboard/manage-tickets"><FaTicketAlt /> Manage Tickets</Link></li>
+                            <li><Link to="/dashboard/advertise-tickets"><FaBullhorn /> Advertise Tickets</Link></li>
                         </> : role === 'vendor' ? <>
                         {/* vendor links */}
                             <li><Link to="/dashboard/user-profile"><FaUser /> Vendor Profile</Link></li>
