@@ -60,7 +60,8 @@ export const router = createBrowserRouter([
       { path: "payment-history", element: <PaymentHistory></PaymentHistory> },
 
       // Vendor Routes
-      { path: "vendor-profile", element: <VendorHome></VendorHome> },
+      { path: "user-profile", element: <Profile /> },
+      { path: "vendor-home", element: <VendorHome></VendorHome> },
       { path: "my-added-tickets", element: <MyAddedTickets></MyAddedTickets> },
       {path: "add-ticket",element: <AddTicket></AddTicket>},
       { path: "requested-bookings", element: <RequestedBookings></RequestedBookings> },

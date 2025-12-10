@@ -72,7 +72,7 @@ const DashboardLayout = () => {
                             <li><Link to="/dashboard/manage-tickets"><FaTicketAlt /> Manage Tickets</Link></li>
                         </> : role === 'vendor' ? <>
                         {/* vendor links */}
-                            <li><Link to="/dashboard/profile"><FaUser /> Vendor Profile</Link></li>
+                            <li><Link to="/dashboard/user-profile"><FaUser /> Vendor Profile</Link></li>
                             <li><Link to="/dashboard/vendor-home"><FaChartPie /> Revenue Overview</Link></li>
                             <li><Link to="/dashboard/add-ticket"><FaPlusCircle /> Add Ticket</Link></li>
                             <li><Link to="/dashboard/my-added-tickets"><FaTicketAlt /> My Added Tickets</Link></li>
