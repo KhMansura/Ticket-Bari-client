@@ -1,14 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProviders";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
     const { signIn, googleSignIn } = useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || "/";
+   
+    
 
     const handleLogin = event => {
         event.preventDefault();
@@ -62,7 +66,23 @@ const Login = () => {
                         </div>
                         <div className="form-control">
                             <label className="label"><span className="label-text">Password</span></label>
-                            <input type="password" name="password" placeholder="password" className="input input-bordered" />
+
+                            {/* <input type="password" name="password" placeholder="password" className="input input-bordered" /> */}
+                            <div className="relative">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    placeholder="password" 
+                                    className="input input-bordered w-full" 
+                                />
+                                <span 
+                                    className="absolute top-4 right-3 cursor-pointer"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
+                            
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>

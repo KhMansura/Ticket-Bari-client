@@ -23,6 +23,8 @@ import SubscriptionSuccess from "../Pages/Subscription/SubscriptionSuccess.jsx";
 import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory.jsx";
 import UpdateTicket from "../Pages/Dashboard/Vendor/UpdateTicket.jsx";
 import AdvertiseTickets from "../Pages/Dashboard/Admin/AdvertiseTickets.jsx";
+import RoutesPage from "../Pages/Routes/RoutesPage.jsx";
+
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ export const router = createBrowserRouter([
         path: "ticket/:id",
         element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 
         loader: ({params}) => fetch(`http://localhost:5000/tickets/${params.id}`)
+      },
+      {
+        path: "routes",
+        element: <RoutesPage />
       },
     
 
@@ -71,6 +77,10 @@ export const router = createBrowserRouter([
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
       { path: "advertise-tickets",element: <AdvertiseTickets />},
+
+      
+
+      
     ]
   }
       

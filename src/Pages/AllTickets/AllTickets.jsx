@@ -61,7 +61,7 @@ const AllTickets = () => {
     return (
         <div className="min-h-screen bg-base-200 py-10">
             <div className="max-w-7xl mx-auto px-4">
-                <h2 className="text-4xl font-bold text-center mb-8 text-white">All Available Tickets</h2>
+                <h2 className="text-4xl font-bold text-center mb-8 text-purple-800">All Available Tickets</h2>
                 
                 {/* --- SEARCH & FILTER BAR --- */}
                 <div className="bg-base-100 p-4 rounded-xl shadow-lg flex flex-wrap gap-4 items-center justify-center mb-10 border border-gray-700">

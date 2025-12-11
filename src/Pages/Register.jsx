@@ -1,13 +1,13 @@
-// export default Register;
+import React, { useState } from "react";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom"; 
 import axios from "axios";
 import Swal from "sweetalert2";
-// Ensure this path matches your folder structure
 import { AuthContext } from "../providers/AuthProviders"; 
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-// Use the same ImgBB key you added to .env.local earlier
+
 const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
@@ -15,6 +15,8 @@ const Register = () => {
     const { createUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    // 3. ADD STATE FOR SHOW/HIDE PASSWORD
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data) => {
         // 1. Upload Image to ImgBB first
@@ -104,14 +106,28 @@ const Register = () => {
                         </div>
 
                         {/* Password Field */}
+                     {/* --- 4. UPDATED PASSWORD FIELD WITH EYE ICON --- */}
                         <div className="form-control">
                             <label className="label"><span className="label-text">Password</span></label>
-                            <input type="password" {...register("password", { 
-                                required: true, 
-                                minLength: 6, 
-                                maxLength: 20,
-                                pattern: /(?=.*[A-Z])(?=.*[a-z])/ 
-                            })} placeholder="password" className="input input-bordered" />
+                            <div className="relative">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    {...register("password", { 
+                                        required: true, 
+                                        minLength: 6, 
+                                        maxLength: 20,
+                                        pattern: /(?=.*[A-Z])(?=.*[a-z])/ 
+                                    })} 
+                                    placeholder="password" 
+                                    className="input input-bordered w-full pr-10" 
+                                />
+                                <span 
+                                    className="absolute top-4 right-3 cursor-pointer text-gray-500"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
                             {errors.password?.type === 'minLength' && <span className="text-red-600">Password must be 6 characters</span>}
                             {errors.password?.type === 'pattern' && <span className="text-red-600">Must have one uppercase and one lowercase</span>}
                         </div>
