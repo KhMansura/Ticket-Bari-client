@@ -23,7 +23,8 @@ const Navbar = ({theme, handleToggle}) => {
     </>
 
     return (
-        <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
+        // <div className="navbar fixed top-0 z-50 bg-base-100/80 backdrop-blur-md shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 md:px-8">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,7 +46,10 @@ const Navbar = ({theme, handleToggle}) => {
             <div className="navbar-end gap-3">
                 <label className="swap swap-rotate">
                     {/* this hidden checkbox controls the state */}
-                    <input type="checkbox" onChange={handleToggle} checked={theme === "dark"} />
+                    <input 
+                    type="checkbox" 
+                    onChange={handleToggle} 
+                    checked={theme === "dark"} />
                     
                     {/* sun icon */}
                     <svg className="swap-on fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,5.64,7.05Zm12,1.41a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,17.64,8.46Zm1.41,8.54a1,1,0,0,0,0,1.41l.71.71a1,1,0,0,0,1.41-1.41l-.71-.71A1,1,0,0,0,19.05,17Zm-7,5a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V23A1,1,0,0,0,12,22ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"/></svg>

@@ -271,7 +271,7 @@ const Banner = () => {
                     <div className="relative w-full h-full">
                          {/* LOCAL IMAGE 3 */}
                         <img 
-                            src="/public/con.jpg" 
+                            src="/public/contact.jpg" 
                             alt="Support" 
                             className="w-full h-full object-cover" 
                         />

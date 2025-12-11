@@ -21,9 +21,11 @@ const RootLayout = () => {
         }
     };
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen font-poppins">
       <Navbar theme={theme} handleToggle={handleToggle} />
-      <Outlet />
+      <div className="flex-grow min-h-[calc(100vh-300px)] bg-base-200 transition-colors duration-300">
+                <Outlet />
+            </div>
       <Footer />
     </div>
   );

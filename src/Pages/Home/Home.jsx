@@ -162,7 +162,7 @@ const Home = () => {
             {/* 3. Latest Tickets Section */}
       <div className="bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">Latest Tickets 🎟️</h2>
+            <h2 className="text-3xl font-bold text-center mb-8 text-blue-800">Latest Tickets 🎟️</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {latestTickets.map(ticket => (
                     <TicketCard key={ticket._id} ticket={ticket} />
@@ -173,7 +173,7 @@ const Home = () => {
 
       {/* 2. Advertisement Section (Admin Choice) - WITH COVERFLOW */}
       {advertisedTickets.length > 0 && (
-        <div className="max-w-7xl mx-auto py-12 px-4 bg-yellow-50 rounded-xl my-10">
+        <div className="max-w-7xl mx-auto py-12 px-4 bg-yellow- rounded-xl my-10">
           <h2 className="text-3xl font-bold text-center mb-8 text-blue-900">Featured Trips 🌟</h2>
           
           {/* REPLACED GRID WITH SWIPER COVERFLOW */}
