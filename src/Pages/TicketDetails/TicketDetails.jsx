@@ -1,31 +1,40 @@
+
 // import { useLoaderData, useNavigate } from "react-router-dom";
+
 // import { useContext, useEffect, useState } from "react";
 // import { AuthContext } from "../../providers/AuthProviders";
 // import Swal from "sweetalert2";
 // import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import SeatMap from "../../components/SeatMap"; // Make sure you created this component!
 
 // const TicketDetails = () => {
 //     const ticket = useLoaderData(); 
 //     const { user } = useContext(AuthContext);
 //     const navigate = useNavigate();
-//     const [bookingQty, setBookingQty] = useState(1);
 //     const axiosSecure = useAxiosSecure();
 
-    
+//     // Seat Map States
+//     const [takenSeats, setTakenSeats] = useState([]);
+//     const [selectedSeats, setSelectedSeats] = useState([]);
 
-//     // Countdown State
+//     // Countdown & Status States
 //     const [timeLeft, setTimeLeft] = useState("");
 //     const [isExpired, setIsExpired] = useState(false);
 //     const [alreadyBooked, setAlreadyBooked] = useState(false);
     
 //     const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate, vendorEmail } = ticket;
 
-//     // 1. Check if User already booked this ticket
+//     // 1. Fetch Live Taken Seats (NEW)
+//     useEffect(() => {
+//         axiosSecure.get(`/tickets/taken-seats/${_id}`)
+//             .then(res => setTakenSeats(res.data));
+//     }, [_id, axiosSecure]);
+
+//     // 2. Check if User already booked this ticket (EXISTING)
 //     useEffect(() => {
 //         if(user?.email) {
 //             axiosSecure.get(`/bookings?email=${user.email}`)
 //                 .then(res => {
-//                     // Check if any booking matches this ticket ID
 //                     const exists = res.data.find(b => b.ticketId === _id);
 //                     if(exists) {
 //                         setAlreadyBooked(true);
@@ -34,9 +43,9 @@
 //         }
 //     }, [user, _id, axiosSecure]);
 
-//     // --- COUNTDOWN LOGIC ---
+//     // 3. Countdown Logic (EXISTING)
 //     useEffect(() => {
-//         if(!departureDate) return; // Safety check
+//         if(!departureDate) return;
 //         const calculateTimeLeft = () => {
 //             const difference = +new Date(departureDate) - +new Date();
 //             if (difference > 0) {
@@ -51,17 +60,18 @@
 //                 setIsExpired(true);
 //             }
 //         };
-
 //         const timer = setInterval(calculateTimeLeft, 1000);
 //         calculateTimeLeft();
-
 //         return () => clearInterval(timer);
 //     }, [departureDate]);
 
+//     // 4. Handle Booking (UPDATED to use Selected Seats)
 //     const handleBookTicket = async () => {
-//         if(bookingQty > quantity) {
-//             Swal.fire("Error", "Not enough seats available!", "error");
-//             return;
+//         if (!user) {
+//             return Swal.fire("Please Login", "You must login to book tickets", "warning");
+//         }
+//         if (selectedSeats.length === 0) {
+//             return Swal.fire("Select Seats", "Please select at least one seat from the map", "warning");
 //         }
 
 //         const bookingData = {
@@ -72,32 +82,33 @@
 //             vendorEmail: vendorEmail, 
 //             from, to, transportType, 
 //             unitPrice: price,
-//             bookingQty: parseInt(bookingQty),
-//             totalPrice: price * parseInt(bookingQty),
+//             bookingQty: selectedSeats.length, // Quantity is automatic now
+//             seatNumbers: selectedSeats,       // Save specific seat numbers (A1, B2)
+//             totalPrice: price * selectedSeats.length,
 //             departureDate,
 //             photo,
 //             status: 'pending'
 //         }
 
-//         // 3. Use axiosSecure
 //         const res = await axiosSecure.post('/bookings', bookingData);
 
 //         if(res.data.insertedId){
 //             Swal.fire("Success", "Booking Request Sent!", "success");
-//             document.getElementById('booking_modal').close();
 //             navigate('/dashboard/my-booked-tickets');
 //         }
 //     }
 
 //     return (
-//         <div className="max-w-6xl mx-auto my-10 p-4">
-//             <div className="card lg:card-side bg-base-100 shadow-xl border">
-//                 <figure className="w-full lg:w-1/2">
-//                     <img src={photo} alt="Ticket" className="w-full h-full object-cover"/>
-//                 </figure>
-//                 <div className="card-body lg:w-1/2">
-//                     <h2 className="card-title text-4xl mb-4">{title}</h2>
-
+//         <div className="max-w-7xl mx-auto my-10 px-4">
+            
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+//                 {/* LEFT SIDE: TICKET INFO */}
+//                 <div>
+//                     <img src={photo} alt="Ticket" className="w-full h-80 object-cover rounded-xl shadow-md mb-6"/>
+                    
+//                     <h2 className="text-4xl font-bold mb-4">{title}</h2>
+                    
 //                     {/* Countdown Badge */}
 //                     <div className={`badge badge-lg p-4 mb-4 ${isExpired ? 'badge-error text-white' : 'badge-primary'}`}>
 //                         {timeLeft}
@@ -108,79 +119,65 @@
 //                         <div className="text-2xl font-bold text-primary">${price} <span className="text-sm text-gray-500">/seat</span></div>
 //                     </div>
                     
-//                     <div className="space-y-2">
+//                     <div className="space-y-2 text-lg text-gray-600 border p-4 rounded-lg bg-base-100">
 //                         <p><strong>Route:</strong> {from} ➝ {to}</p>
 //                         <p><strong>Date:</strong> {new Date(departureDate).toLocaleString()}</p>
-//                         <p><strong>Available Seats:</strong> {quantity}</p>
+//                         <p><strong>Total Seats:</strong> {quantity}</p>
+//                         <p><strong>Perks:</strong></p>
+//                         <div className="flex gap-2 flex-wrap mt-1">
+//                             {Array.isArray(perks) ? (
+//                                 perks.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)
+//                             ) : (
+//                                 <span className="text-sm">No specific perks</span>
+//                             )}
+//                         </div>
 //                     </div>
+//                 </div>
 
-//                     <div className="divider">Perks</div>
-//                     {/* <div className="flex gap-2 flex-wrap">
-//                         {perks?.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)}
-//                     </div> */}
-//                     <div className="flex gap-2 flex-wrap">
-//                         {Array.isArray(perks) ? (
-//                             perks.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)
-//                         ) : (
-//                             <span className="text-gray-500 text-sm">No specific perks listed</span>
-//                         )}
-//                     </div>
-
-//                     <div className="card-actions justify-end mt-8">
-//                         {/* Open Modal Button */}
-//                         <button 
-//                             className="btn btn-primary w-full" 
-//                             disabled={quantity === 0 || isExpired || alreadyBooked} 
-//                             onClick={()=>document.getElementById('booking_modal').showModal()}
-//                         >
-//                             {/* UPDATE: Button Text */}
-//                             {isExpired ? "Expired" : alreadyBooked ? "Already Booked" : quantity === 0 ? "Sold Out" : "Book Now"}
-//                         </button>
-//                     </div>
+//                 {/* RIGHT SIDE: SEAT MAP & CONFIRMATION */}
+//                 <div>
+//                     {/* Only show map if booking is allowed */}
+//                     {isExpired || quantity === 0 ? (
+//                         <div className="h-full flex items-center justify-center bg-gray-100 rounded-xl">
+//                             <h2 className="text-2xl font-bold text-gray-400">Booking Closed</h2>
+//                         </div>
+//                     ) : alreadyBooked ? (
+//                         <div className="h-full flex items-center justify-center bg-gray-100 rounded-xl">
+//                             <h2 className="text-2xl font-bold text-primary">You already booked this ticket</h2>
+//                         </div>
+//                     ) : (
+//                         <div className="flex flex-col gap-4">
+//                             {/* THE LIVE SEAT MAP COMPONENT */}
+//                             <SeatMap 
+//                                 takenSeats={takenSeats} 
+//                                 selectedSeats={selectedSeats} 
+//                                 setSelectedSeats={setSelectedSeats} 
+//                                 price={price} 
+//                             />
+                            
+//                             <button 
+//                                 onClick={handleBookTicket} 
+//                                 disabled={selectedSeats.length === 0}
+//                                 className="btn btn-primary w-full text-lg shadow-lg">
+//                                 Confirm {selectedSeats.length} Seats - ${selectedSeats.length * price}
+//                             </button>
+//                         </div>
+//                     )}
 //                 </div>
 //             </div>
-
-//             {/* DaisyUI Modal for Booking */}
-//             <dialog id="booking_modal" className="modal">
-//                 <div className="modal-box">
-//                     <h3 className="font-bold text-lg">Confirm Booking</h3>
-//                     <p className="py-4">How many seats do you want to book?</p>
-                    
-//                     <div className="form-control">
-//                         <label className="label"><span className="label-text">Quantity</span></label>
-//                         <input 
-//                             type="number" 
-//                             min="1" 
-//                             max={quantity} 
-//                             value={bookingQty}
-//                             onChange={(e) => setBookingQty(e.target.value)} 
-//                             className="input input-bordered" 
-//                         />
-//                         <label className="label">
-//                             <span className="label-text-alt">Total Price: ${price * bookingQty}</span>
-//                         </label>
-//                     </div>
-
-//                     <div className="modal-action">
-//                         <form method="dialog">
-//                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-//                             <button className="btn mr-2">Cancel</button>
-//                         </form>
-//                         <button onClick={handleBookTicket} className="btn btn-primary">Confirm</button>
-//                     </div>
-//                 </div>
-//             </dialog>
 //         </div>
 //     );
 // };
 
 // export default TicketDetails;
+
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import SeatMap from "../../components/SeatMap"; // Make sure you created this component!
+import SeatMap from "../../components/SeatMap"; 
+import { FaMapMarkerAlt, FaBus, FaClock, FaCheckCircle, FaExclamationTriangle, FaChair, FaMoneyBillWave } from "react-icons/fa";
 
 const TicketDetails = () => {
     const ticket = useLoaderData(); 
@@ -199,26 +196,24 @@ const TicketDetails = () => {
     
     const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate, vendorEmail } = ticket;
 
-    // 1. Fetch Live Taken Seats (NEW)
+    // 1. Fetch Live Taken Seats
     useEffect(() => {
         axiosSecure.get(`/tickets/taken-seats/${_id}`)
             .then(res => setTakenSeats(res.data));
     }, [_id, axiosSecure]);
 
-    // 2. Check if User already booked this ticket (EXISTING)
+    // 2. Check if User already booked
     useEffect(() => {
         if(user?.email) {
             axiosSecure.get(`/bookings?email=${user.email}`)
                 .then(res => {
                     const exists = res.data.find(b => b.ticketId === _id);
-                    if(exists) {
-                        setAlreadyBooked(true);
-                    }
+                    if(exists) setAlreadyBooked(true);
                 })
         }
     }, [user, _id, axiosSecure]);
 
-    // 3. Countdown Logic (EXISTING)
+    // 3. Countdown Logic
     useEffect(() => {
         if(!departureDate) return;
         const calculateTimeLeft = () => {
@@ -240,13 +235,13 @@ const TicketDetails = () => {
         return () => clearInterval(timer);
     }, [departureDate]);
 
-    // 4. Handle Booking (UPDATED to use Selected Seats)
+    // 4. Handle Booking
     const handleBookTicket = async () => {
         if (!user) {
-            return Swal.fire("Please Login", "You must login to book tickets", "warning");
+            return Swal.fire("Login Required", "Please login to book tickets.", "warning");
         }
         if (selectedSeats.length === 0) {
-            return Swal.fire("Select Seats", "Please select at least one seat from the map", "warning");
+            return Swal.fire("No Seats Selected", "Please select at least one seat from the map.", "info");
         }
 
         const bookingData = {
@@ -257,8 +252,8 @@ const TicketDetails = () => {
             vendorEmail: vendorEmail, 
             from, to, transportType, 
             unitPrice: price,
-            bookingQty: selectedSeats.length, // Quantity is automatic now
-            seatNumbers: selectedSeats,       // Save specific seat numbers (A1, B2)
+            bookingQty: selectedSeats.length,
+            seatNumbers: selectedSeats,
             totalPrice: price * selectedSeats.length,
             departureDate,
             photo,
@@ -268,76 +263,172 @@ const TicketDetails = () => {
         const res = await axiosSecure.post('/bookings', bookingData);
 
         if(res.data.insertedId){
-            Swal.fire("Success", "Booking Request Sent!", "success");
+            Swal.fire({
+                title: "Booking Requested!",
+                text: "Waiting for vendor approval.",
+                icon: "success",
+                confirmButtonColor: "#2563EB"
+            });
             navigate('/dashboard/my-booked-tickets');
         }
     }
 
     return (
-        <div className="max-w-7xl mx-auto my-10 px-4">
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="min-h-screen bg-base-200 py-10 font-poppins">
+            <div className="max-w-7xl mx-auto px-4">
                 
-                {/* LEFT SIDE: TICKET INFO */}
-                <div>
-                    <img src={photo} alt="Ticket" className="w-full h-80 object-cover rounded-xl shadow-md mb-6"/>
-                    
-                    <h2 className="text-4xl font-bold mb-4">{title}</h2>
-                    
-                    {/* Countdown Badge */}
-                    <div className={`badge badge-lg p-4 mb-4 ${isExpired ? 'badge-error text-white' : 'badge-primary'}`}>
-                        {timeLeft}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="badge badge-lg badge-outline p-4">{transportType}</div>
-                        <div className="text-2xl font-bold text-primary">${price} <span className="text-sm text-gray-500">/seat</span></div>
-                    </div>
-                    
-                    <div className="space-y-2 text-lg text-gray-600 border p-4 rounded-lg bg-base-100">
-                        <p><strong>Route:</strong> {from} ➝ {to}</p>
-                        <p><strong>Date:</strong> {new Date(departureDate).toLocaleString()}</p>
-                        <p><strong>Total Seats:</strong> {quantity}</p>
-                        <p><strong>Perks:</strong></p>
-                        <div className="flex gap-2 flex-wrap mt-1">
-                            {Array.isArray(perks) ? (
-                                perks.map((perk, i) => <span key={i} className="badge badge-accent text-white">{perk}</span>)
-                            ) : (
-                                <span className="text-sm">No specific perks</span>
-                            )}
-                        </div>
+                {/* Top Banner / Breadcrumb Area */}
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-[#1e3a8a]">{title}</h1>
+                    <div className="flex items-center gap-2 text-slate-500 text-sm mt-1">
+                        <span>{transportType}</span>
+                        <span>•</span>
+                        <span>{from} to {to}</span>
                     </div>
                 </div>
 
-                {/* RIGHT SIDE: SEAT MAP & CONFIRMATION */}
-                <div>
-                    {/* Only show map if booking is allowed */}
-                    {isExpired || quantity === 0 ? (
-                        <div className="h-full flex items-center justify-center bg-gray-100 rounded-xl">
-                            <h2 className="text-2xl font-bold text-gray-400">Booking Closed</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    {/* LEFT COLUMN: Ticket Details (Span 2) */}
+                    <div className="lg:col-span-2 space-y-8">
+                        
+                        {/* 1. Hero Image */}
+                        <div className="rounded-2xl overflow-hidden shadow-card h-[400px]">
+                            <img src={photo} alt="Ticket" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"/>
                         </div>
-                    ) : alreadyBooked ? (
-                        <div className="h-full flex items-center justify-center bg-gray-100 rounded-xl">
-                            <h2 className="text-2xl font-bold text-primary">You already booked this ticket</h2>
-                        </div>
-                    ) : (
-                        <div className="flex flex-col gap-4">
-                            {/* THE LIVE SEAT MAP COMPONENT */}
-                            <SeatMap 
-                                takenSeats={takenSeats} 
-                                selectedSeats={selectedSeats} 
-                                setSelectedSeats={setSelectedSeats} 
-                                price={price} 
-                            />
+
+                        {/* 2. Route & Info Card */}
+                        <div className="bg-white p-8 rounded-2xl shadow-card border border-gray-100">
+                            <h2 className="text-xl font-bold text-[#1e3a8a] mb-6 border-b pb-4">Trip Information</h2>
                             
-                            <button 
-                                onClick={handleBookTicket} 
-                                disabled={selectedSeats.length === 0}
-                                className="btn btn-primary w-full text-lg shadow-lg">
-                                Confirm {selectedSeats.length} Seats - ${selectedSeats.length * price}
-                            </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-blue-50 rounded-lg text-primary text-xl"><FaMapMarkerAlt /></div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Route</p>
+                                        <p className="font-semibold text-slate-700">{from} <span className="text-gray-400 px-2">➝</span> {to}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-blue-50 rounded-lg text-primary text-xl"><FaClock /></div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Departure</p>
+                                        <p className="font-semibold text-slate-700">{new Date(departureDate).toLocaleString()}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-blue-50 rounded-lg text-primary text-xl"><FaBus /></div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Type</p>
+                                        <p className="font-semibold text-slate-700">{transportType}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="p-3 bg-blue-50 rounded-lg text-primary text-xl"><FaChair /></div>
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Availability</p>
+                                        <p className="font-semibold text-slate-700">{quantity} Seats Left</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Perks */}
+                            <div className="mt-8 pt-6 border-t border-gray-100">
+                                <p className="text-sm font-bold text-slate-500 mb-3 uppercase tracking-wider">Onboard Amenities</p>
+                                <div className="flex gap-2 flex-wrap">
+                                    {Array.isArray(perks) && perks.length > 0 ? (
+                                        perks.map((perk, i) => (
+                                            <span key={i} className="badge badge-lg bg-gray-100 text-slate-600 border-none px-4 py-3 gap-2">
+                                                <FaCheckCircle className="text-green-500 text-xs" /> {perk}
+                                            </span>
+                                        ))
+                                    ) : (
+                                        <span className="text-sm text-slate-400 italic">No specific perks listed</span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                    )}
+                    </div>
+
+                    {/* RIGHT COLUMN: Booking Panel (Sticky) */}
+                    <div className="lg:col-span-1">
+                        <div className="bg-white rounded-2xl shadow-card border border-gray-100 sticky top-24 overflow-hidden">
+                            
+                            {/* Header / Timer */}
+                            <div className={`p-4 text-center text-white font-bold ${isExpired ? 'bg-red-500' : 'bg-[#1e3a8a]'}`}>
+                                {isExpired ? (
+                                    <span className="flex items-center justify-center gap-2"><FaExclamationTriangle /> Booking Closed</span>
+                                ) : (
+                                    <div className="flex flex-col">
+                                        <span className="text-xs opacity-80 uppercase tracking-widest font-normal">Departing In</span>
+                                        <span className="text-xl font-mono">{timeLeft}</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="p-6">
+                                {/* Price Tag */}
+                                <div className="flex justify-between items-center mb-6">
+                                    <span className="text-slate-500 font-medium">Price per seat</span>
+                                    <span className="text-2xl font-bold text-primary">${price}</span>
+                                </div>
+
+                                {/* Seat Map Container */}
+                                <div className="bg-gray-50 border rounded-xl p-4 mb-6">
+                                    <p className="text-center text-xs text-slate-400 mb-4 uppercase font-bold tracking-wider">Select Your Seats</p>
+                                    
+                                    {/* Conditional Logic for Map */}
+                                    {isExpired || quantity === 0 ? (
+                                        <div className="h-40 flex items-center justify-center text-slate-400 font-bold">
+                                            Unavailable
+                                        </div>
+                                    ) : alreadyBooked ? (
+                                        <div className="h-40 flex flex-col items-center justify-center text-center">
+                                            <FaCheckCircle className="text-4xl text-green-500 mb-2" />
+                                            <h3 className="font-bold text-slate-700">Already Booked</h3>
+                                            <p className="text-xs text-slate-500 mt-1">You have a ticket for this trip.</p>
+                                        </div>
+                                    ) : (
+                                        <SeatMap 
+                                            takenSeats={takenSeats} 
+                                            selectedSeats={selectedSeats} 
+                                            setSelectedSeats={setSelectedSeats} 
+                                            price={price} 
+                                        />
+                                    )}
+                                </div>
+
+                                {/* Summary */}
+                                <div className="space-y-3 mb-6">
+                                    <div className="flex justify-between text-sm">
+                                        <span className="text-slate-500">Selected</span>
+                                        <span className="font-semibold">{selectedSeats.length} Seats</span>
+                                    </div>
+                                    <div className="flex justify-between text-lg font-bold text-[#1e3a8a] border-t pt-3">
+                                        <span>Total</span>
+                                        <span>${selectedSeats.length * price}</span>
+                                    </div>
+                                </div>
+
+                                {/* Action Button */}
+                                <button 
+                                    onClick={handleBookTicket} 
+                                    disabled={isExpired || quantity === 0 || alreadyBooked || selectedSeats.length === 0}
+                                    className="btn btn-primary w-full h-12 shadow-lg shadow-blue-200 text-lg font-bold disabled:bg-gray-200 disabled:text-gray-400">
+                                    {alreadyBooked ? "View My Ticket" : "Request to Book"}
+                                </button>
+                                
+                                <p className="text-center text-xs text-slate-400 mt-4">
+                                    <FaExclamationTriangle className="inline mr-1" />
+                                    Vendor approval required after booking.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

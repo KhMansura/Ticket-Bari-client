@@ -24,6 +24,7 @@ import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory.jsx";
 import UpdateTicket from "../Pages/Dashboard/Vendor/UpdateTicket.jsx";
 import AdvertiseTickets from "../Pages/Dashboard/Admin/AdvertiseTickets.jsx";
 import RoutesPage from "../Pages/Routes/RoutesPage.jsx";
+import ErrorPage from "../Pages/ErrorPage.jsx";
 
 
 export const router = createBrowserRouter([
@@ -77,6 +78,8 @@ export const router = createBrowserRouter([
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
       { path: "advertise-tickets",element: <AdvertiseTickets />},
+
+      { path: "*", element: <ErrorPage />}
 
       
 
