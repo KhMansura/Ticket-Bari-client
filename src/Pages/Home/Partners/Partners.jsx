@@ -313,7 +313,7 @@ const Partners = () => {
         <div className="max-w-7xl mx-auto px-4 py-16 bg-base-100">
             {/* Header Section */}
             <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold text-primary">Our Travel Partners</h2>
+                <h2 className="text-3xl font-bold ">Our Travel Partners</h2>
                 <p className="text-gray-500 mt-2">Proudly working with top Airlines, Bus Operators, and Bangladesh Railway</p>
             </div>
 
