@@ -36,13 +36,13 @@
   
 //   useEffect(() => {
 //     // Ensure your server has this route: app.get('/tickets/latest', ...)
-//     axios.get('http://localhost:5000/tickets') 
+//     axios.get('https://ticket-bari-server.vercel.app/tickets') 
 //       .then(res => {
 //         const approved = res.data.filter(t => t.verificationStatus === 'approved');
 //         setLatestTickets(approved.slice(0, 6)); 
 //       });
       
-//       axios.get('http://localhost:5000/tickets/advertised')
+//       axios.get('https://ticket-bari-server.vercel.app/tickets/advertised')
 //         .then(res => setAdvertisedTickets(res.data));
 //   }, []);
 
@@ -185,14 +185,14 @@ const Home = () => {
   
     useEffect(() => {
         // Fetch Latest Approved Tickets
-        axios.get('http://localhost:5000/tickets') 
+        axios.get('https://ticket-bari-server.vercel.app/tickets') 
             .then(res => {
                 const approved = res.data.filter(t => t.verificationStatus === 'approved');
                 setLatestTickets(approved.slice(0, 6)); 
             });
         
         // Fetch Advertised Tickets
-        axios.get('http://localhost:5000/tickets/advertised')
+        axios.get('https://ticket-bari-server.vercel.app/tickets/advertised')
             .then(res => setAdvertisedTickets(res.data));
     }, []);
 
