@@ -249,7 +249,7 @@ const Banner = () => {
                     <div className="relative w-full h-full">
                          {/* LOCAL IMAGE 2 */}
                         <img 
-                            src="/public/assets/Routes.jpg" 
+                            src="/public/assets/Etihad-Airways-flight-destination-map.png" 
                             alt="Routes" 
                             className="w-full h-full object-cover" 
                         />
