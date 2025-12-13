@@ -68,14 +68,32 @@
 
 // export default DashboardLayout;
 
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom"; 
 import { FaBook, FaBullhorn, FaChartPie, FaHome, FaPlusCircle, FaTicketAlt, FaUser, FaUsers, FaWallet } from "react-icons/fa";
 import useRole from "../hooks/useRole";
+import { AuthContext } from "../providers/AuthProviders";
 
 const DashboardLayout = () => {
-    const [role] = useRole();
-    const location = useLocation(); // Used to highlight the active menu item
+    // const [role] = useRole();
+    // const location = useLocation(); // Used to highlight the active menu item
+
+    // 1. All Hooks MUST go at the top (Before any return statement)
+    const { loading } = useContext(AuthContext);
+    const [role, isRoleLoading] = useRole(); 
+    const location = useLocation(); 
+
+    // 2. NOW you can safely check for loading
+    // This prevents the "Flicker" (showing User menu before Admin menu loads)
+    if (loading || isRoleLoading) {
+        return (
+            <div className="h-screen flex items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+        );
+    }
+
+
 
     // Helper to style active links
     const getLinkClass = (path) => {

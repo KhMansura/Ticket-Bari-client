@@ -24,6 +24,7 @@
 // export default Payment;
 
 import { loadStripe } from "@stripe/stripe-js";
+
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { useLocation, Navigate } from "react-router-dom";

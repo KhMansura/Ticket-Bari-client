@@ -25,12 +25,14 @@ import UpdateTicket from "../Pages/Dashboard/Vendor/UpdateTicket.jsx";
 import AdvertiseTickets from "../Pages/Dashboard/Admin/AdvertiseTickets.jsx";
 import RoutesPage from "../Pages/Routes/RoutesPage.jsx";
 import ErrorPage from "../Pages/ErrorPage.jsx";
+// import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home></Home>},
       { path: "login", element: <Login></Login>},
@@ -53,6 +55,7 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    errorElement: <ErrorPage />,
     children: [
       // DEFAULT:
       { path: "", element: <Profile></Profile> }, 
