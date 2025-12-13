@@ -203,6 +203,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
+import mapImg from '/public/assets/Etihad-Airways-flight-destination-map.png';
+import supportImg from '/public/contact.jpg';
 
 const Banner = () => {
     return (
@@ -249,7 +251,7 @@ const Banner = () => {
                     <div className="relative w-full h-full">
                          {/* LOCAL IMAGE 2 */}
                         <img 
-                            src="/public/assets/Etihad-Airways-flight-destination-map.png" 
+                            src={mapImg} 
                             alt="Routes" 
                             className="w-full h-full object-cover" 
                         />
@@ -271,7 +273,7 @@ const Banner = () => {
                     <div className="relative w-full h-full">
                          {/* LOCAL IMAGE 3 */}
                         <img 
-                            src="/public/contact.jpg" 
+                            src={supportImg}
                             alt="Support" 
                             className="w-full h-full object-cover" 
                         />

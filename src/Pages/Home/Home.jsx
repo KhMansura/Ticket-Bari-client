@@ -218,7 +218,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* 3. Featured Trips (Swiper Coverflow) */}
+            {/* 3. Featured Trips */}
             {advertisedTickets.length > 0 && (
                 <div className="py-20 bg-white relative">
                     <div className="max-w-7xl mx-auto px-4">
@@ -238,7 +238,7 @@ const Home = () => {
                                 stretch: 0,
                                 depth: 100,
                                 modifier: 2.5,
-                                slideShadows: false, // Cleaner look without heavy shadows
+                                slideShadows: false,
                             }}
                             autoplay={{
                                 delay: 3000,
@@ -265,7 +265,7 @@ const Home = () => {
                 <Partners />
             </div>
 
-            {/* 5. Why Choose Us (Professional Cards) */}
+            {/* 5. Why Choose Us */}
             <div className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-12">Why Choose TicketBari?</h2>
@@ -307,7 +307,7 @@ const Home = () => {
                 </div>
             </div>
 
-           {/* 6. Newsletter - REDESIGNED (Clean Light Gray to break the blue) */}
+           {/* 6. Newsletter - REDESIGNED */}
             <div className="bg-base-200 py-24 relative overflow-hidden">
                 {/* Decorative Circle (Subtle) */}
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-blue-50 blur-3xl opacity-50"></div>
@@ -324,7 +324,7 @@ const Home = () => {
                         Get exclusive offers, route updates, and travel tips delivered directly to your inbox. No spam, we promise.
                     </p>
                     
-                    {/* Input Field - High Contrast against Gray Background */}
+                    {/* Input Field */}
                     <div className="join w-full justify-center max-w-lg mx-auto shadow-xl bg-white rounded-full p-2 border border-white">
                         <input 
                             className="input w-full border-none focus:outline-none bg-transparent pl-6 text-gray-700 placeholder-gray-400" 

@@ -38,7 +38,7 @@
 //             }
 
 //             // 3. Send to Server
-//             const menuRes = await axios.post('http://localhost:5000/tickets', ticketItem);
+//             const menuRes = await axios.post('import.meta.env.VITE_SERVER_URL/tickets', ticketItem);
 //             if (menuRes.data.insertedId) {
 //                 reset();
 //                 Swal.fire({

@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       {
         path: "ticket/:id",
         element: <PrivateRoute><TicketDetails></TicketDetails></PrivateRoute>, 
-        loader: ({params}) => fetch(`http://localhost:5000/tickets/${params.id}`)
+        loader: ({params}) => fetch(`${import.meta.env.VITE_SERVER_URL}/tickets/${params.id}`)
       },
       {
         path: "routes",

@@ -18,7 +18,7 @@
 
 //     useEffect(() => {
 //         // Fetch all tickets from the database
-//         axios.get('http://localhost:5000/tickets')
+//         axios.get('import.meta.env.VITE_SERVER_URL/tickets')
 //             .then(res => {
 //                 // Show approved tickets only
 //                 const approved = res.data.filter(t => t.verificationStatus === 'approved');
@@ -179,7 +179,7 @@ const AllTickets = () => {
     const [itemsPerPage] = useState(6);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/tickets')
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/tickets`)
             .then(res => {
                 const approved = res.data.filter(t => t.verificationStatus === 'approved');
                 setTickets(approved);

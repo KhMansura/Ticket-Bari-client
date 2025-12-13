@@ -43,7 +43,7 @@
 //             if (currentUser) {
 //                 // get token and store client
 //                 // const userInfo = { email: currentUser.email };
-//                 // axios.post('http://localhost:5000/jwt', userInfo)
+//                 // axios.post('import.meta.env.VITE_SERVER_URL/jwt', userInfo)
 //                 currentUser.getIdToken(true)
 //                     .then(res => {
 //                         if (res.data.token) {

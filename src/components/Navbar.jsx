@@ -14,11 +14,11 @@ const Navbar = ({theme, handleToggle}) => {
 
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/all-tickets">All Tickets</NavLink></li>
+        <li><NavLink to="/dashboard/user-profile">Dashboard</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li> 
         <li><NavLink to="/contact">Contact Us</NavLink></li>
-        {/* Only show these if user is logged in, per requirements "(private)" */}
-        {user && <li><NavLink to="/all-tickets">All Tickets</NavLink></li>}
-        {user && <li><NavLink to="/dashboard/user-profile">Dashboard</NavLink></li>}
+        
         
     </>
 

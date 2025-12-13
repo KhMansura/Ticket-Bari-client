@@ -46,7 +46,7 @@
 //                                 role: 'user' 
 //                             }; 
                             
-//                             axios.post('http://localhost:5000/users', userInfo)
+//                             axios.post('import.meta.env.VITE_SERVER_URL/users', userInfo)
 //                                 .then(dbRes => {
 //                                     if (dbRes.data.insertedId) {
 //                                         reset();
@@ -71,7 +71,7 @@
 //                     photo: result.user.photoURL,
 //                     role: 'user' 
 //                 };
-//                 axios.post('http://localhost:5000/users', userInfo)
+//                 axios.post('import.meta.env.VITE_SERVER_URL/users', userInfo)
 //                     .then(() => {
 //                         navigate("/");
 //                     })
@@ -188,7 +188,8 @@ const Register = () => {
                                 role: 'user' 
                             }; 
                             
-                            axios.post('http://localhost:5000/users', userInfo)
+                            // axios.post('import.meta.env.VITE_SERVER_URL/users', userInfo)
+                            axios.post(`${import.meta.env.VITE_API_URL}/users`, userInfo)
                                 .then(dbRes => {
                                     if (dbRes.data.insertedId) {
                                         reset();
@@ -218,7 +219,7 @@ const Register = () => {
                     photo: result.user.photoURL,
                     role: 'user' 
                 };
-                axios.post('http://localhost:5000/users', userInfo)
+                axios.post(`${import.meta.env.VITE_SERVER_URL}/users`, userInfo)
                     .then(() => {
                         navigate("/");
                     })
