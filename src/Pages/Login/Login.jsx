@@ -134,7 +134,7 @@ const Login = () => {
                     timer: 1500,
                     confirmButtonColor: "#2563EB"
                 });
-                navigate(from, { replace: true });
+                navigate("/", { replace: true });
             })
             .catch(error => {
                 Swal.fire({

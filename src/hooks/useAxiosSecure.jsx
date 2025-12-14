@@ -78,7 +78,7 @@ const useAxiosSecure = () => {
             return Promise.reject(error);
         });
 
-        // 3. CLEANUP (Removes interceptors when component unmounts)
+        // 3. CLEANUP 
         return () => {
             axiosSecure.interceptors.request.eject(requestInterceptor);
             axiosSecure.interceptors.response.eject(responseInterceptor);

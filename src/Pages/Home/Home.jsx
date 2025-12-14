@@ -184,15 +184,16 @@ const Home = () => {
     }
   
     useEffect(() => {
+        console.log("MY SERVER URL:", import.meta.env.VITE_SERVER_URL);
         // Fetch Latest Approved Tickets
-        axios.get('https://ticket-bari-server.vercel.app/tickets') 
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/tickets`) 
             .then(res => {
                 const approved = res.data.filter(t => t.verificationStatus === 'approved');
                 setLatestTickets(approved.slice(0, 6)); 
             });
         
         // Fetch Advertised Tickets
-        axios.get('https://ticket-bari-server.vercel.app/tickets/advertised')
+        axios.get(`${import.meta.env.VITE_SERVER_URL}/tickets/advertised`)
             .then(res => setAdvertisedTickets(res.data));
     }, []);
 

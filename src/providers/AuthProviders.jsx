@@ -109,6 +109,8 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setLoading(true);
+        localStorage.clear();
+    sessionStorage.clear();
         return signOut(auth);
     }
 
