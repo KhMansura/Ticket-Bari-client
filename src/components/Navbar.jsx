@@ -1,16 +1,32 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaBus, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../providers/AuthProviders";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Navbar = ({theme, handleToggle}) => {
     const { user, logOut } = useContext(AuthContext);
 
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => { 
+                queryClient.clear(); // Wipes the "Admin/Vendor" memory
+                navigate('/login');
+            })
             .catch(error => console.log(error));
     }
+    // const handleLogOut = async () => {
+    //     try {
+    //         await logOut();
+    //         queryClient.clear(); // Clear cache
+    //         window.location.replace('/'); // Hard Refresh to Home
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>

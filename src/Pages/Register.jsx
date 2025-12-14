@@ -373,7 +373,7 @@ const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
-    const { createUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleSignIn, setUser, user } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -394,6 +394,7 @@ const Register = () => {
                 
                 // 3. Update Profile (Wait for this!)
                 await updateUserProfile(data.name, photoURL);
+                setUser({ ...user, displayName: data.name, photoURL: photoURL });
 
                 // 4. Prepare User Data for MongoDB
                 const userInfo = { 
@@ -429,6 +430,7 @@ const Register = () => {
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
+                setUser(result.user);
                 const userInfo = { 
                     email: result.user.email, 
                     name: result.user.displayName, 

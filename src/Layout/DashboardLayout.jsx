@@ -123,7 +123,7 @@ const DashboardLayout = () => {
             </div> 
 
             {/* Sidebar */}
-            <div className="drawer-side z-50">
+            <div className="drawer-side z-20">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
                 
                 {/* Dark Navy Background for Professional Look */}

@@ -2,7 +2,7 @@
 
 TicketBari is a comprehensive full-stack MERN application designed to simplify travel booking. Users can browse and book tickets for buses, trains, and flights. The platform features role-based dashboards for Users, Vendors, and Admins, ensuring a seamless experience for managing tickets, bookings, and payments.
 
-🔗 Live Site URL: https://ticket-bari-deploy-link.web.app
+🔗 Live Site URL: https://ticket-bari-89e64.web.app
 
 📂 Server Repository: [Link to Server Repo](https://github.com/KhMansura/Ticket-Bari-server.git)
 

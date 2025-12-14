@@ -164,6 +164,8 @@ import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import WhyChooseUs from "./WhyChooseUs";
+import PopularRoutes from "./PopularRoutes";
 
 const Home = () => {
     const [latestTickets, setLatestTickets] = useState([]);
@@ -184,12 +186,13 @@ const Home = () => {
     }
   
     useEffect(() => {
-        console.log("MY SERVER URL:", import.meta.env.VITE_SERVER_URL);
+        // console.log("MY SERVER URL:", import.meta.env.VITE_SERVER_URL);
         // Fetch Latest Approved Tickets
         axios.get(`${import.meta.env.VITE_SERVER_URL}/tickets`) 
             .then(res => {
                 const approved = res.data.filter(t => t.verificationStatus === 'approved');
-                setLatestTickets(approved.slice(0, 6)); 
+                const newestFirst = [...approved].reverse();
+                setLatestTickets(newestFirst.slice(0, 6)); 
             });
         
         // Fetch Advertised Tickets
@@ -260,6 +263,7 @@ const Home = () => {
                     </div>
                 </div>
             )}
+            <PopularRoutes></PopularRoutes>
 
             {/* 4. Partners Section */}
             <div className="bg-base-200 py-10">
@@ -267,46 +271,7 @@ const Home = () => {
             </div>
 
             {/* 5. Why Choose Us */}
-            <div className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-12">Why Choose TicketBari?</h2>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Card 1 */}
-                        <div className="p-8 border border-gray-100 rounded-2xl shadow-card hover:-translate-y-2 transition-transform duration-300 bg-white">
-                            <div className="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-primary text-3xl mb-6">
-                                <FaShieldAlt />
-                            </div>
-                            <h3 className="text-xl font-bold text-[#1e3a8a] mb-3">Secure Payment</h3>
-                            <p className="text-slate-500 leading-relaxed">
-                                We use bank-grade security to ensure your transactions are 100% safe and encrypted.
-                            </p>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="p-8 border border-gray-100 rounded-2xl shadow-card hover:-translate-y-2 transition-transform duration-300 bg-white">
-                            <div className="w-16 h-16 mx-auto bg-amber-50 rounded-full flex items-center justify-center text-amber-500 text-3xl mb-6">
-                                <FaBolt />
-                            </div>
-                            <h3 className="text-xl font-bold text-[#1e3a8a] mb-3">Fast Booking</h3>
-                            <p className="text-slate-500 leading-relaxed">
-                                Book your tickets in less than 2 minutes. No queues, no hassle, just travel.
-                            </p>
-                        </div>
-
-                        {/* Card 3 */}
-                        <div className="p-8 border border-gray-100 rounded-2xl shadow-card hover:-translate-y-2 transition-transform duration-300 bg-white">
-                            <div className="w-16 h-16 mx-auto bg-green-50 rounded-full flex items-center justify-center text-green-500 text-3xl mb-6">
-                                <FaHeadset />
-                            </div>
-                            <h3 className="text-xl font-bold text-[#1e3a8a] mb-3">24/7 Support</h3>
-                            <p className="text-slate-500 leading-relaxed">
-                                Our dedicated support team is available round the clock to assist you with any issues.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <WhyChooseUs></WhyChooseUs>
 
            {/* 6. Newsletter - REDESIGNED */}
             <div className="bg-base-200 py-24 relative overflow-hidden">

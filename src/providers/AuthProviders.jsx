@@ -107,11 +107,15 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
-    const logOut = () => {
+    const logOut = async () => {
         setLoading(true);
-        localStorage.clear();
-    sessionStorage.clear();
-        return signOut(auth);
+    //     localStorage.clear();
+    // sessionStorage.clear();
+       await signOut(auth);
+       setUser(null);
+       localStorage.removeItem('access-token');
+       setLoading(false);
+
     }
 
     const updateUserProfile = (name, photo) => {
@@ -151,6 +155,7 @@ const AuthProvider = ({ children }) => {
 
     const authInfo = {
         user,
+        setUser,
         loading,
         createUser,
         signIn,
