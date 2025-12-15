@@ -50,7 +50,7 @@ body {
 
 /* Base class for items that slide up */
 .animate-on-load {
-  opacity: 0; /* Start invisible so they don't flash before animating */
+  opacity: 0; 
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
@@ -64,7 +64,7 @@ body {
     @apply text-[#1e3a8a] font-bold tracking-tight;
   }
   
-  /* Optional: Make subtitles slightly lighter */
+  /*  Make subtitles slightly lighter */
   p {
     @apply text-slate-600;
   }

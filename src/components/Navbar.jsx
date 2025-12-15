@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FaBus, FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../providers/AuthProviders";
 import { useQueryClient } from "@tanstack/react-query";
@@ -7,26 +7,27 @@ import { useQueryClient } from "@tanstack/react-query";
 const Navbar = ({theme, handleToggle}) => {
     const { user, logOut } = useContext(AuthContext);
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const queryClient = useQueryClient();
+    const location = useLocation();
 
-    const handleLogOut = () => {
-        logOut()
-            .then(() => { 
-                queryClient.clear(); // Wipes the "Admin/Vendor" memory
-                navigate('/login');
-            })
-            .catch(error => console.log(error));
-    }
-    // const handleLogOut = async () => {
-    //     try {
-    //         await logOut();
-    //         queryClient.clear(); // Clear cache
-    //         window.location.replace('/'); // Hard Refresh to Home
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
+    // const handleLogOut = () => {
+    //     logOut()
+    //         .then(() => { 
+    //             queryClient.clear();
+    //             navigate('/login');
+    //         })
+    //         .catch(error => console.log(error));
     // }
+    const handleLogOut = async () => {
+        try {
+            await logOut();
+            queryClient.clear();
+            window.location.replace('/'); 
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const navOptions = <>
         <li><NavLink to="/">Home</NavLink></li>
@@ -98,7 +99,16 @@ const Navbar = ({theme, handleToggle}) => {
                         </div>
                     </> : <>
                         {/* User is Logged Out */}
-                        <Link to="/login" className="btn btn-primary btn-sm mr-2">Login</Link>
+                        {/* <Link to="/login" className="btn btn-primary btn-sm mr-2">Login</Link>
+                        <Link to="/register" className="btn btn-outline btn-primary btn-sm">Register</Link> */}
+                        <Link 
+                            to="/login" 
+                            state={{ from: location }} 
+                            className="btn btn-primary btn-sm mr-2"
+                        >
+                            Login
+                        </Link>
+                        
                         <Link to="/register" className="btn btn-outline btn-primary btn-sm">Register</Link>
                     </>
                 }

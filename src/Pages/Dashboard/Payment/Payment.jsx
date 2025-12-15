@@ -30,15 +30,15 @@ import CheckoutForm from "./CheckoutForm";
 import { useLocation, Navigate } from "react-router-dom";
 import { FaLock, FaShieldAlt, FaTicketAlt, FaMoneyBillWave, FaCreditCard } from "react-icons/fa";
 
-// Add your Public Key from Stripe Dashboard here
+// Add Public Key from Stripe Dashboard 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
 const Payment = () => {
     const location = useLocation();
-    const booking = location.state; // We will pass booking data via state
+    const booking = location.state;
     const total = booking?.totalPrice || 0;
 
-    // Redirect if no booking data found (Prevents crashing if user refreshes)
+    // Redirect if no booking data found 
     if (!booking) {
         return <Navigate to="/all-tickets" replace />;
     }

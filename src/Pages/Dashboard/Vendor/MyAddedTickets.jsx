@@ -147,7 +147,7 @@ const MyAddedTickets = () => {
         })
     }
 
-    // Helper for Status Badge Color
+    // Helper Status Badge Color
     const getStatusColor = (status) => {
         switch(status) {
             case 'approved': return 'badge-success text-white';
@@ -159,7 +159,7 @@ const MyAddedTickets = () => {
     return (
         <div className="w-full max-w-7xl mx-auto px-4 font-poppins">
             
-            {/* Header Section */}
+            {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-200 pb-5">
                 <div>
                     <h2 className="text-3xl font-bold text-[#1e3a8a]">Inventory Management</h2>
@@ -180,7 +180,7 @@ const MyAddedTickets = () => {
                 {tickets.map(ticket => (
                     <div key={ticket._id} className="card bg-base-100 shadow-card border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full group overflow-hidden">
                         
-                        {/* Image Header with Status Overlay */}
+                        {/* Image Header */}
                         <figure className="h-48 relative">
                             <img src={ticket.photo} alt={ticket.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                             <div className="absolute top-3 right-3">
@@ -210,7 +210,7 @@ const MyAddedTickets = () => {
                                         </span>
                                     </div>
                                 </div> */}
-                                {/* ✅ FIXED: Changed departureTime to departureDate */}
+                                {/* departureTime to departureDate */}
                                     <div className="flex items-center gap-2">
                                         <FaCalendarAlt className="text-primary" />
                                         <span className="text-xs font-semibold">

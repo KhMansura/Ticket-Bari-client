@@ -7,7 +7,7 @@ const ErrorPage = () => {
     return (
         <div className="min-h-screen bg-base-200 flex items-center justify-center p-4 font-poppins relative overflow-hidden">
             
-            {/* Background Decoration (Subtle & Professional) */}
+            {/* Background */}
             <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
@@ -33,7 +33,7 @@ const ErrorPage = () => {
                     Oops! The page you are looking for seems to have taken a different route.
                 </p>
 
-                {/* Technical Error Details (Optional - Good for Devs) */}
+                {/* Technical Error Details */}
                 {error && (
                     <div className="mb-8 p-4 bg-red-50 rounded-xl border border-red-100 text-sm text-red-500 font-mono inline-block max-w-full overflow-hidden text-ellipsis">
                         <i>{error.statusText || error.message}</i>

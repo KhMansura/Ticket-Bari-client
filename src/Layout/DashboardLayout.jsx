@@ -76,14 +76,13 @@ import { AuthContext } from "../providers/AuthProviders";
 
 const DashboardLayout = () => {
     // const [role] = useRole();
-    // const location = useLocation(); // Used to highlight the active menu item
+    // const location = useLocation(); 
 
     // 1. All Hooks MUST go at the top (Before any return statement)
     const { loading } = useContext(AuthContext);
     const [role, isRoleLoading] = useRole(); 
     const location = useLocation(); 
 
-    // 2. NOW you can safely check for loading
     // This prevents the "Flicker" (showing User menu before Admin menu loads)
     if (loading || isRoleLoading) {
         return (

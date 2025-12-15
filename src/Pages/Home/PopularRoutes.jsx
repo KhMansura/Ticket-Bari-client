@@ -14,7 +14,7 @@ const PopularRoutes = () => {
             rating: 4.9,
             time: "8h 30m",
             badge: "Best Seller",
-            image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=600&auto=format&fit=crop" // Bus image
+            image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=600&auto=format&fit=crop"
         },
         {
             id: 2,
@@ -24,7 +24,7 @@ const PopularRoutes = () => {
             rating: 4.8,
             time: "5h 15m",
             badge: "Hot Deal",
-            image: "https://images.unsplash.com/photo-1620626379532-628d05260f86?q=80&w=600&auto=format&fit=crop" // Nature image
+            image: "https://i.ibb.co.com/ymMxsCbL/download.jpg"
         },
         {
             id: 3,
@@ -34,7 +34,7 @@ const PopularRoutes = () => {
             rating: 4.7,
             time: "6h 00m",
             badge: null,
-            image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=600&auto=format&fit=crop" // Bus/Road image
+            image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=600&auto=format&fit=crop"
         },
         {
             id: 4,
@@ -44,7 +44,7 @@ const PopularRoutes = () => {
             rating: 4.6,
             time: "4h 45m",
             badge: "Selling Fast",
-            image: "https://images.unsplash.com/photo-1494515855673-b411c78e19f5?q=80&w=600&auto=format&fit=crop" // Travel image
+            image: "https://i.ibb.co.com/MyVFBtbz/download.jpg"
         }
     ];
 
@@ -75,7 +75,7 @@ const PopularRoutes = () => {
                         <div 
                             key={route.id} 
                             className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer border border-gray-100"
-                            onClick={() => navigate('/routes')} // Click card to go to Routes page
+                            onClick={() => navigate('/routes')} 
                         >
                             {/* Image Section */}
                             <div className="relative h-48 overflow-hidden">

@@ -5,15 +5,15 @@ const SeatMap = ({ takenSeats, selectedSeats, setSelectedSeats, price }) => {
     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     
     const handleSeatClick = (seatId) => {
-        if (takenSeats.includes(seatId)) return; // Do nothing if taken
+        if (takenSeats.includes(seatId)) return;
 
         if (selectedSeats.includes(seatId)) {
             // Unselect
             setSelectedSeats(selectedSeats.filter(s => s !== seatId));
         } else {
-            // Select (Max 4 seats for example)
-            if(selectedSeats.length >= 4) {
-                return alert("You can only select up to 4 seats.");
+            // Select (Max 8 seats for example)
+            if(selectedSeats.length >= 8) {
+                return alert("You can only select up to 8 seats.");
             }
             setSelectedSeats([...selectedSeats, seatId]);
         }

@@ -1,68 +1,3 @@
-// import { useContext } from "react";
-// import { AuthContext } from "../../../providers/AuthProviders";
-// import useRole from "../../../hooks/useRole";
-
-// const Profile = () => {
-//     const { user } = useContext(AuthContext);
-//     const [role, isRoleLoading] = useRole();
-
-//     // 1. Format the date
-//     const joinDate = user?.metadata?.creationTime 
-//         ? new Date(user.metadata.creationTime).toDateString() 
-//         : 'N/A';
-    
-//     const lastLogin = user?.metadata?.lastSignInTime 
-//         ? new Date(user.metadata.lastSignInTime).toDateString() 
-//         : 'N/A';
-
-//     return (
-//         <div className="w-full flex justify-center mt-10">
-//             <div className="card w-96 bg-base-100 shadow-xl border border-gray-700">
-//                 <div className="card-body items-center text-center">
-                    
-//                     {/* Profile Image */}
-//                     <div className="avatar online">
-//                         <div className="w-24 rounded-full border-4 border-primary">
-//                             <img src={user?.photoURL || "https://i.ibb.co/5GzXkwq/user.png"} alt="Profile" />
-//                         </div>
-//                     </div>
-
-//                     <h2 className="card-title text-2xl mt-4">{user?.displayName}</h2>
-//                     <p className="text-gray-500">{user?.email}</p>
-
-//                     {/* 2. THE FIX: Display the role from the hook, NOT from user object */}
-//                     {isRoleLoading ? (
-//                         <span className="loading loading-dots loading-sm"></span>
-//                     ) : (
-//                         <div className={`badge badge-outline mt-2 font-bold p-3 uppercase 
-//                             ${role === 'admin' ? 'badge-error' : role === 'vendor' ? 'badge-warning' : 'badge-primary'}`}>
-//                             ROLE: {role || 'USER'}
-//                         </div>
-//                     )}
-
-//                     {/* User Stats */}
-//                     <div className="stats shadow mt-6 w-full bg-base-200">
-//                         <div className="stat place-items-center">
-//                             <div className="stat-title text-xs">Joined</div>
-//                             <div className="stat-value text-sm">{joinDate}</div>
-//                         </div>
-//                         <div className="stat place-items-center">
-//                             <div className="stat-title text-xs">Last Login</div>
-//                             <div className="stat-value text-sm">{lastLogin}</div>
-//                         </div>
-//                     </div>
-
-//                     <div className="card-actions mt-6">
-//                         <button className="btn btn-primary w-full">Edit Profile</button>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Profile;
-
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
 import useRole from "../../../hooks/useRole";
@@ -86,13 +21,13 @@ const Profile = () => {
             {/* Main Card */}
             <div className="bg-base-100 rounded-2xl shadow-card overflow-hidden border border-gray-100 relative">
                 
-                {/* 1. Cover Background (Gradient) */}
+                {/* 1. Cover Background  */}
                 <div className="h-32 bg-gradient-to-r from-[#1e3a8a] to-[#2563EB]"></div>
 
                 {/* 2. Profile Content */}
                 <div className="px-8 pb-8">
                     
-                    {/* Avatar (Overlapping) */}
+                    {/* Avatar */}
                     <div className="relative -mt-16 mb-4 flex justify-center">
                         <div className="avatar online">
                             <div className="w-32 rounded-full border-4 border-white shadow-lg bg-base-100">

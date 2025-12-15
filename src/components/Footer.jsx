@@ -1,7 +1,6 @@
 import { FaFacebook, FaInstagram, FaStripe, FaCcVisa, FaCcMastercard, FaBus } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { Link } from "react-router-dom"; // Note: Changed 'react-router' to 'react-router-dom' for standard practice
-
+import { Link } from "react-router-dom";
 const Footer = () => {
     return (
         <footer className="bg-neutral text-neutral-content border-t border-base-300">

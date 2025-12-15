@@ -143,9 +143,7 @@
 //   );
 // };
 
-// export default Home;
-
-import { useEffect, useState } from "react";
+// export default Home;import { useEffect, useState } from "react";
 import TicketCard from "../../components/TicketCard";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -166,6 +164,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import WhyChooseUs from "./WhyChooseUs";
 import PopularRoutes from "./PopularRoutes";
+import { useEffect, useState } from "react";
 
 const Home = () => {
     const [latestTickets, setLatestTickets] = useState([]);
@@ -227,7 +226,7 @@ const Home = () => {
                 <div className="py-20 bg-white relative">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-3">Featured Trips 🌟</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold text-[#1e3a8a] mb-3">Featured Advertisements🌟</h2>
                             <p className="text-slate-500">Hand-picked destinations with special offers.</p>
                         </div>
                         

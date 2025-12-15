@@ -82,7 +82,7 @@
 import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
-// Note: We don't need axios here anymore for tokens!
+
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -125,7 +125,7 @@ const AuthProvider = ({ children }) => {
     }
 
     // ---------------------------------------------------------
-    // ✅ THIS IS THE FIX: GET TOKEN FROM FIREBASE DIRECTLY
+    //  GET TOKEN FROM FIREBASE DIRECTLY
     // ---------------------------------------------------------
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {

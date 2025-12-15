@@ -74,7 +74,7 @@ const TicketCard = ({ ticket }) => {
           minute: '2-digit',
           hour12: true 
       }); 
-      // Example output: "Dec 25, 2025, 10:30 AM"
+      
   };
 
   return (

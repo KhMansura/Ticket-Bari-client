@@ -39,6 +39,7 @@
 // };
 
 // export default useAxiosSecure;
+
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +51,7 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
     const navigate = useNavigate();
-    const { logOut } = useAuth(); // Get the logout function
+    const { logOut } = useAuth(); // Get logout function
 
     useEffect(() => {
         // 1. REQUEST INTERCEPTOR (Attaches Token)

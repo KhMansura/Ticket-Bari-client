@@ -339,7 +339,7 @@ const MyBookedTickets = () => {
         })
     }
 
-    // 4. DOWNLOAD FUNCTION (Professional Invoice Style)
+    // 4. DOWNLOAD FUNCTION
     const handleDownload = (item) => {
         const printWindow = window.open('', '', 'width=800,height=600');
         printWindow.document.write(`

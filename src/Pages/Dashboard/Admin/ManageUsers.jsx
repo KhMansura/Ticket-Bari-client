@@ -189,7 +189,7 @@ const ManageUsers = () => {
                 </div>
             </div>
 
-            {/* Professional Table Card */}
+            {/* Table Card */}
             <div className="bg-white rounded-xl shadow-card overflow-hidden border border-gray-100">
                 <div className="overflow-x-auto">
                     <table className="table w-full">

@@ -20,7 +20,7 @@ const RequestedBookings = () => {
             .then(res => {
                 if(res.data.modifiedCount > 0){
                     Swal.fire('Updated', `Booking ${status}`, 'success');
-                    // Refresh data
+                    // Refresh 
                     axiosSecure.get(`/bookings/vendor?email=${user.email}`)
                         .then(res => setBookings(res.data));
                 }
