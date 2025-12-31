@@ -10,10 +10,6 @@ TicketBari is a comprehensive full-stack MERN application designed to simplify t
 ---
 ## 🖼️ Screenshot 
 ![Project Home](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/full-home.png)
-![Project About-us](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/about-us.png)
-![Project Contact-Us](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/contact-us.png)
-
-
 
 🚀 Purpose
 
@@ -98,7 +94,7 @@ FIREBASE_PROJECT_ID=your_project_id
 ```bash
 git clone https://github.com/KhMansura/Ticket-Bari-client.git
 git clone https://github.com/KhMansura/Ticket-Bari-server.git
-```
+
 2. Install dependencies
    cd Ticket-Bari-client
 npm install
@@ -114,4 +110,5 @@ Server
 npm start
 5. Open in browser
 http://localhost:5173
+```
 
