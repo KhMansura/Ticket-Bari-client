@@ -9,7 +9,10 @@ TicketBari is a comprehensive full-stack MERN application designed to simplify t
 📂 Client Repository: [Link to Client Repo](https://github.com/KhMansura/Ticket-Bari-client.git)
 ---
 ## 🖼️ Screenshot 
-![Project Screenshot](https://raw.githubusercontent.com/KhMansura/Ticket-Bari-client/main/public/)
+![Project Home](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/full-home.png)
+![Project About-us](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/about-us.png)
+![Project Contact-Us](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/contact-us.png)
+
 
 
 🚀 Purpose
