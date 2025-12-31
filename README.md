@@ -8,7 +8,10 @@ TicketBari is a comprehensive full-stack MERN application designed to simplify t
 
 📂 Client Repository: [Link to Client Repo](https://github.com/KhMansura/Ticket-Bari-client.git)
 ---
-## 🖼️ Screenshot *(Upload your screenshot to GitHub and replace the link below)* ![TicketBari Screenshot](your-image-url-here)
+## 🖼️ Screenshot 
+![Project Screenshot](https://raw.githubusercontent.com/KhMansura/Ticket-Bari-client/main/public/)
+
+
 🚀 Purpose
 
 The primary goal of TicketBari is to bridge the gap between transport operators (Vendors) and travelers. It provides a secure, transparent, and user-friendly interface where:
@@ -78,3 +81,34 @@ The primary goal of TicketBari is to bridge the gap between transport operators 
      ---
      ## 🧪 Environment Variables
      ### **Client (.env)**
+     PORT=5000
+MONGO_URI=your_mongo_uri
+STRIPE_SECRET_KEY=your_stripe_key
+FIREBASE_PROJECT_ID=your_project_id
+
+
+---
+
+## 🛠️ How to Run the Project Locally
+
+### 1. Clone the repositories
+```bash
+git clone https://github.com/KhMansura/Ticket-Bari-client.git
+git clone https://github.com/KhMansura/Ticket-Bari-server.git
+```
+2. Install dependencies
+   cd Ticket-Bari-client
+npm install
+
+cd ../Ticket-Bari-server
+npm install
+3. Add environment variables
+Create .env files in both client and server folders (see above).
+4. Start the development servers
+Client
+npm run dev
+Server
+npm start
+5. Open in browser
+http://localhost:5173
+
