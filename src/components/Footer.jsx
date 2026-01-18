@@ -22,9 +22,10 @@ const Footer = () => {
                 <nav className="flex flex-col gap-3">
                     <header className="footer-title text-white opacity-100 text-lg tracking-widest mb-2">Quick Links</header> 
                     <Link to="/" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">Home</Link>
-                    <Link to="/all-tickets" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">All Tickets</Link>
+                    <Link to="/help" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">Help</Link>
                     <Link to="/about" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">About Us</Link>
                     <Link to="/contact" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">Contact</Link>
+                    <Link to="/privacy" className="link link-hover text-gray-400 hover:text-white transition-colors duration-300">Privacy</Link>
                 </nav> 
 
                 {/* Column 3: Contact Info */}
@@ -34,13 +35,26 @@ const Footer = () => {
                     <p className="text-gray-400 text-sm">Phone: +880 123 456 7890</p>
                     
                     <div className="flex gap-4 mt-4">
-                        <a className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-white hover:text-blue-600 transition-all border border-gray-700">
+                        <a href="https://facebook.com/ticketbari" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        title="Follow us on Facebook"
+                        className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-[#1877F2] hover:text-white transition-all duration-300 border border-gray-700">
                             <FaFacebook />
                         </a>
-                        <a className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-white hover:text-black transition-all border border-gray-700">
+                        <a href="https://twitter.com/ticketbari" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        title="Follow us on X"
+                        className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-black hover:text-white transition-all duration-300 border border-gray-700">
                             <FaXTwitter />
                         </a>
-                        <a className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-white hover:text-pink-600 transition-all border border-gray-700">
+                        <a href="https://instagram.com/ticketbari" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="btn btn-sm btn-circle btn-ghost text-xl hover:bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] hover:text-white transition-all duration-300 border border-gray-700"
+        title="Follow us on Instagram"
+                        >
                             <FaInstagram />
                         </a>
                     </div>

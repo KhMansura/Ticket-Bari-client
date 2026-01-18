@@ -26,6 +26,15 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
+
+                if (email === "admin@ticketbari.com") {
+                Swal.fire({
+                    title: "Demo Admin Access",
+                    text: "Logged in as a Read-Only Admin. Actions are restricted for testing.",
+                    icon: "info",
+                    confirmButtonColor: "#1e3a8a"
+                });
+            } else {
                 Swal.fire({ 
                     title: 'Welcome Back!',
                     text: 'Login Successful',
@@ -34,6 +43,7 @@ const Login = () => {
                     timer: 1500,
                     confirmButtonColor: "#2563EB"
                 });
+            }
                 navigate(from, { replace: true });
             })
             .catch(error => {
@@ -89,6 +99,29 @@ const Login = () => {
                 Swal.fire("Error", error.message, "error");
             });
     }
+    // Add this inside the Login component before the return
+const handleDemoLogin = (role) => {
+    const emailField = document.querySelector('input[name="email"]');
+    const passwordField = document.querySelector('input[name="password"]');
+
+    if (role === 'admin') {
+        emailField.value = "admin@ticketbari.com";
+        passwordField.value = "Admin@123";
+
+    } else {
+        emailField.value = "user@example.com";
+        passwordField.value = "User@123";
+    }
+    // Optional: Auto-trigger the login or just fill it
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'info',
+        title: `${role} credentials filled!`,
+        showConfirmButton: false,
+        timer: 1500
+    });
+};
 
     return (
         <div className="min-h-screen bg-base-200 flex items-center justify-center py-10 px-4 font-poppins">
@@ -171,6 +204,10 @@ const Login = () => {
                                 </button>
                             </label>
                         </div>
+                        <div className="flex gap-2 mb-2">
+    <button type="button" onClick={() => handleDemoLogin('user')} className="btn btn-xs btn-outline btn-info">Demo User</button>
+    <button type="button" onClick={() => handleDemoLogin('admin')} className="btn btn-xs btn-outline btn-secondary">Demo Admin</button>
+</div>
 
                         {/* Login Button */}
                         <div className="form-control mt-4">

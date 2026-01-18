@@ -1,73 +1,3 @@
-// import React from "react";
-// import { Link, Outlet } from "react-router-dom"; // FIXED: Added Link
-// import { FaBook, FaBullhorn, FaChartPie, FaHome, FaPlusCircle, FaTicketAlt, FaUser, FaUsers, FaWallet } from "react-icons/fa";
-// import useRole from "../hooks/useRole";
-
-// const DashboardLayout = () => {
-//     // const role = 'vendor'; 
-//     const [role] = useRole();
-
-//     return (
-//         <div className="drawer lg:drawer-open font-poppins bg-base-200">
-//             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-//             <div className="drawer-content flex flex-col items-center justify-center p-8">
-//                 {/* Page Content */}
-//                 <Outlet />
-//                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Drawer</label>
-//             </div> 
-//             <div className="drawer-side">
-//                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
-//                 <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-//                     {/* Sidebar Header */}
-//                     <div className="mb-6 text-center">
-//                         <h2 className="text-2xl font-bold">TicketBari</h2>
-//                         <p className="text-sm uppercase tracking-widest">Dashboard</p>
-//                     </div>
-
-//                     {/* Conditional Links based on Role */}
-//                     {
-//                         role === 'admin' ? <>
-//                         {/* admin links */}
-//                             <li className="menu-title text-gray-500 text-xs uppercase mb-2">Admin Controls</li>
-//                             <li><Link to="/dashboard/user-profile"><FaUser /> Admin Profile</Link></li>
-//                             <li><Link to="/dashboard/manage-users"><FaUsers /> Manage Users</Link></li>
-//                             <li><Link to="/dashboard/manage-tickets"><FaTicketAlt /> Manage Tickets</Link></li>
-//                             <li><Link to="/dashboard/advertise-tickets"><FaBullhorn /> Advertise Tickets</Link></li>
-//                         </> : role === 'vendor' ? <>
-//                         {/* vendor links */}
-//                              <li className="menu-title text-gray-500 text-xs uppercase mb-2">Vendor Controls</li>
-//                             <li><Link to="/dashboard/user-profile"><FaUser /> Vendor Profile</Link></li>
-//                             <li><Link to="/dashboard/vendor-home"><FaChartPie /> Revenue Overview</Link></li>
-//                             <li><Link to="/dashboard/add-ticket"><FaPlusCircle /> Add Ticket</Link></li>
-//                             <li><Link to="/dashboard/my-added-tickets"><FaTicketAlt /> My Added Tickets</Link></li>
-//                             <li><Link to="/dashboard/requested-bookings"><FaBook /> Requested Bookings</Link></li>
-//                         </> : <>
-//                         {/* user links */}
-//                             <li className="menu-title text-gray-500 text-xs uppercase mb-2">User Menu</li>
-//                             <li><Link to="/dashboard/user-profile"><FaUser /> User Profile</Link></li>
-//                             <li><Link to="/dashboard/my-booked-tickets"><FaBook /> My Booked Tickets</Link></li>
-//                             <li><Link to="/dashboard/payment-history"><FaWallet/> Payment History</Link></li>
-                            
-//                         </>
-//                     }
-                    
-//                     {/* <div className="divider"></div> 
-
-//                     <li><Link to="/"><FaHome /> Home</Link></li> */}
-//                     {/* Sidebar Footer */}
-//                     <div className="p-4 border-t border-gray-800">
-//                         <Link to="/" className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-all">
-//                             <FaHome /> Back to Home
-//                         </Link>
-//                     </div>
-//                 </ul>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default DashboardLayout;
-
 import React, { useContext } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom"; 
 import { FaBook, FaBullhorn, FaChartPie, FaHome, FaPlusCircle, FaTicketAlt, FaUser, FaUsers, FaWallet } from "react-icons/fa";
@@ -75,13 +5,13 @@ import useRole from "../hooks/useRole";
 import { AuthContext } from "../providers/AuthProviders";
 
 const DashboardLayout = () => {
-    // const [role] = useRole();
-    // const location = useLocation(); 
+    
 
     // 1. All Hooks MUST go at the top (Before any return statement)
-    const { loading } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const [role, isRoleLoading] = useRole(); 
     const location = useLocation(); 
+    
 
     // This prevents the "Flicker" (showing User menu before Admin menu loads)
     if (loading || isRoleLoading) {
@@ -118,6 +48,24 @@ const DashboardLayout = () => {
                     </label>
                 </div>
 
+                {/* Inside Dashboard Layout */}
+{/* {role === 'admin' && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6 rounded-r-lg shadow-sm">
+            <p className="text-sm text-yellow-700">
+                <span className="font-bold">⚠️ Viewing as Demo Admin:</span> Actions like Add, Edit, and Delete are disabled for security during the testing phase.
+            </p>
+        </div>
+    )} */}
+    {/* Only visible if the logged-in user is the Demo Admin */}
+{user?.email === "admin@ticketbari.com" && (
+    <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6 rounded-r-lg shadow-sm animate-pulse">
+        <p className="text-sm text-yellow-700">
+            <span className="font-bold uppercase tracking-wide">⚠️ Demo Mode:</span> 
+            You are logged in as a <strong>Read-Only Admin</strong>. 
+            Modification of data (Add/Edit/Delete) is restricted for this testing account.
+        </p>
+    </div>
+)}
                 <Outlet />
             </div> 
 
@@ -143,6 +91,7 @@ const DashboardLayout = () => {
                             role === 'admin' ? <>
                                 <li className="menu-title text-gray-500 text-xs uppercase mt-2 mb-1">Admin Controls</li>
                                 <li><Link to="/dashboard/user-profile" className={getLinkClass("/dashboard/user-profile")}><FaUser /> Admin Profile</Link></li>
+                                <li><Link to="/dashboard/admin-home" className={getLinkClass("/dashboard/admin-home")}><FaChartPie /> Admin Home</Link></li>
                                 <li><Link to="/dashboard/manage-users" className={getLinkClass("/dashboard/manage-users")}><FaUsers /> Manage Users</Link></li>
                                 <li><Link to="/dashboard/manage-tickets" className={getLinkClass("/dashboard/manage-tickets")}><FaTicketAlt /> Manage Tickets</Link></li>
                                 <li><Link to="/dashboard/advertise-tickets" className={getLinkClass("/dashboard/advertise-tickets")}><FaBullhorn /> Advertise Tickets</Link></li>
@@ -156,6 +105,7 @@ const DashboardLayout = () => {
                             </> : <>
                                 <li className="menu-title text-gray-500 text-xs uppercase mt-2 mb-1">User Menu</li>
                                 <li><Link to="/dashboard/user-profile" className={getLinkClass("/dashboard/user-profile")}><FaUser /> User Profile</Link></li>
+                                <li><Link to="/dashboard/user-home" className={getLinkClass("/dashboard/user-home")}><FaChartPie /> User Home</Link></li>
                                 <li><Link to="/dashboard/my-booked-tickets" className={getLinkClass("/dashboard/my-booked-tickets")}><FaBook /> My Booked Tickets</Link></li>
                                 <li><Link to="/dashboard/payment-history" className={getLinkClass("/dashboard/payment-history")}><FaWallet/> Payment History</Link></li>
                             </>
@@ -168,6 +118,7 @@ const DashboardLayout = () => {
                             <FaHome /> Back to Home
                         </Link>
                     </div>
+                    
                 </aside>
             </div>
         </div>

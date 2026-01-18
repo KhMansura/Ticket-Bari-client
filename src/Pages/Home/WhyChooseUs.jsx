@@ -7,9 +7,7 @@ const WhyChooseUs = () => {
             id: 1,
             icon: <FaShieldAlt />,
             frontTitle: "Safe & Secure",
-            // The front description
             frontDesc: "Verified operators and secure payments.", 
-            // New content for the back side
             backTitle: "Our Safety Commitment",
             backDesc: "We conduct rigorous background checks on all operator partners. Our payment gateways use 256-bit SSL encryption to ensure your financial data never falls into the wrong hands. Travel with peace of mind."
         },

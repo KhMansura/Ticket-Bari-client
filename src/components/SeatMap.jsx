@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SeatMap = ({ takenSeats, selectedSeats, setSelectedSeats, price }) => {
-    // Generate standard 40-seat bus layout (A1-A4 ... J1-J4)
+    // Generate standard 40-seat bus layout
     const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     
     const handleSeatClick = (seatId) => {
@@ -11,7 +11,7 @@ const SeatMap = ({ takenSeats, selectedSeats, setSelectedSeats, price }) => {
             // Unselect
             setSelectedSeats(selectedSeats.filter(s => s !== seatId));
         } else {
-            // Select (Max 8 seats for example)
+            // Select 
             if(selectedSeats.length >= 8) {
                 return alert("You can only select up to 8 seats.");
             }
@@ -34,12 +34,12 @@ const SeatMap = ({ takenSeats, selectedSeats, setSelectedSeats, price }) => {
             <div className="grid grid-cols-5 gap-3 justify-center mb-6">
                 {/* Column Headers */}
                 <div className="col-span-2 text-center font-bold">Left</div>
-                <div className=""></div> {/* Aisle */}
+                <div className=""></div>
                 <div className="col-span-2 text-center font-bold">Right</div>
 
                 {rows.map(row => (
                     <React.Fragment key={row}>
-                        {/* Left Side (1, 2) */}
+                        {/* Left Side */}
                         <div 
                             onClick={() => handleSeatClick(`${row}1`)}
                             className={`p-2 text-center rounded cursor-pointer border
@@ -60,7 +60,7 @@ const SeatMap = ({ takenSeats, selectedSeats, setSelectedSeats, price }) => {
                         {/* Walking Aisle */}
                         <div className="w-8"></div>
 
-                        {/* Right Side (3, 4) */}
+                        {/* Right Side */}
                         <div 
                             onClick={() => handleSeatClick(`${row}3`)}
                             className={`p-2 text-center rounded cursor-pointer border

@@ -124,9 +124,8 @@ const AuthProvider = ({ children }) => {
         });
     }
 
-    // ---------------------------------------------------------
     //  GET TOKEN FROM FIREBASE DIRECTLY
-    // ---------------------------------------------------------
+    
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);

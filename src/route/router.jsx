@@ -25,6 +25,10 @@ import UpdateTicket from "../Pages/Dashboard/Vendor/UpdateTicket.jsx";
 import AdvertiseTickets from "../Pages/Dashboard/Admin/AdvertiseTickets.jsx";
 import RoutesPage from "../Pages/Routes/RoutesPage.jsx";
 import ErrorPage from "../Pages/ErrorPage.jsx";
+import UserHome from "../Pages/Dashboard/User/UserHome.jsx";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome.jsx";
+import Help from "../Pages/Help.jsx";
+import PrivacyPolicies from "../Pages/PrivacyPolicies.jsx";
 // import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory.jsx";
 
 
@@ -40,6 +44,8 @@ export const router = createBrowserRouter([
       { path: "all-tickets", element: <PrivateRoute><AllTickets></AllTickets></PrivateRoute> },
       { path: "about", element: <About></About> },
       { path: "contact", element: <Contact></Contact> },
+      { path: "help", element: <Help></Help> },
+      { path: "privacy", element: <PrivacyPolicies></PrivacyPolicies> },
       { path: "subscription-success", element: <SubscriptionSuccess></SubscriptionSuccess> },
       {
         path: "ticket/:id",
@@ -65,6 +71,7 @@ export const router = createBrowserRouter([
       
       // User Routes
       { path: "user-profile", element: <Profile></Profile> },
+      {path: "user-home", element: <UserHome></UserHome>},
       { path: "my-booked-tickets", element: <MyBookedTickets></MyBookedTickets>},
       { path: "payment", element: <Payment></Payment> },
       { path: "payment-history", element: <PaymentHistory></PaymentHistory> },
@@ -79,6 +86,7 @@ export const router = createBrowserRouter([
      
       // ADMIN ROUTES
       { path: "manage-users", element: <ManageUsers></ManageUsers> },
+      {path: "admin-home", element: <AdminHome></AdminHome>},
       { path: "manage-tickets", element: <ManageTickets></ManageTickets> },
       { path: "advertise-tickets",element: <AdvertiseTickets />},
 

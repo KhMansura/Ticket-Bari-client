@@ -6,7 +6,7 @@ const About = () => {
             
             {/* 1. Hero Section */}
             <div className="relative bg-gradient-to-r from-[#1e3a8a] to-[#2563EB] text-white py-24">
-                <div className="absolute inset-0 bg-black opacity-20"></div> {/* Dark overlay for depth */}
+                <div className="absolute inset-0 bg-black opacity-20"></div>
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
                     <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#93c5fd] to-[#3b82f6]">About TicketBari</h1>
                     <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto font-light">
@@ -47,7 +47,7 @@ const About = () => {
                     </div>
                 </div>
 
-                {/* 3. Our Story Section (Clean Split Layout) */}
+                {/* 3. Our Story Section */}
                 <div className="bg-base-100 rounded-2xl shadow-sm overflow-hidden mb-20">
                     <div className="flex flex-col lg:flex-row">
                         {/* Image Side */}

@@ -40,7 +40,7 @@ const useRole = () => {
 
     const { data: role = '', isPending: isRoleLoading } = useQuery({
         queryKey: [user?.email, 'role'],
-        // CRITICAL: Only run this query if Firebase is done loading AND we have a user
+        // CRITICAL: Only run this query if Firebase is done loading AND have a user
         enabled: !loading && !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/role/${user.email}`);

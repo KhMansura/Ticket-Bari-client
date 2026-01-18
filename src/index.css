@@ -69,3 +69,52 @@ body {
     @apply text-slate-600;
   }
 }
+/* Ensure consistent vertical spacing and horizontal padding */
+.section-container {
+    @apply max-w-7xl mx-auto px-4 py-20 md:py-24;
+}
+
+/* 1. Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Global Base Styles */
+@layer base {
+  body {
+    /* bg-base-200 handles the light/dark background automatically via DaisyUI */
+    @apply font-['Poppins'] bg-base-200 text-base-content antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    /* Uses your Primary/Secondary colors from the config */
+    @apply text-secondary dark:text-white font-bold tracking-tight;
+  }
+  
+  p {
+    @apply text-slate-600 dark:text-slate-400 leading-relaxed;
+  }
+}
+
+/* 3. Reusable Components (Consistency Rule) */
+@layer components {
+  /* This ensures ALL sections have the same padding/alignment */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 py-16 md:py-24;
+  }
+
+  /* Requirement: "All cards must have the same size/border radius" */
+  .standard-card {
+    @apply bg-base-100 rounded-2xl border border-base-300 shadow-sm transition-all duration-300 hover:shadow-md;
+  }
+}
+
+/* 4. Requirement: "Loaders and Animations" */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-on-load {
+  animation: fadeInUp 0.6s ease-out forwards;
+}

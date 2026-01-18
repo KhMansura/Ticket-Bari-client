@@ -35,6 +35,13 @@ const Navbar = ({theme, handleToggle}) => {
         <li><NavLink to="/dashboard/user-profile">Dashboard</NavLink></li>
         <li><NavLink to="/about">About Us</NavLink></li> 
         <li><NavLink to="/contact">Contact Us</NavLink></li>
+
+        {user && (
+        <>
+            <li><NavLink to="/dashboard/my-booked-tickets">My Bookings</NavLink></li>
+            <li><NavLink to="/dashboard/user-profile">Profile</NavLink></li>
+        </>
+    )}
         
         
     </>

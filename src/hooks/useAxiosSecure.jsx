@@ -51,10 +51,10 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
     const navigate = useNavigate();
-    const { logOut } = useAuth(); // Get logout function
+    const { logOut } = useAuth();
 
     useEffect(() => {
-        // 1. REQUEST INTERCEPTOR (Attaches Token)
+        // 1. REQUEST INTERCEPTOR -Attaches Token
         const requestInterceptor = axiosSecure.interceptors.request.use(function (config) {
             const token = localStorage.getItem('access-token');
             if (token) {
@@ -65,7 +65,7 @@ const useAxiosSecure = () => {
             return Promise.reject(error);
         });
 
-        // 2. RESPONSE INTERCEPTOR (Handles 401/403 Errors)
+        // 2. RESPONSE INTERCEPTOR
         const responseInterceptor = axiosSecure.interceptors.response.use(function (response) {
             return response;
         }, async (error) => {

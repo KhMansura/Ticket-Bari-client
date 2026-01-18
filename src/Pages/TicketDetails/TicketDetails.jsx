@@ -1,10 +1,36 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+// import { Link, useLoaderData, useNavigate } from "react-router-dom";
+// import { useContext, useEffect, useState } from "react";
+// import { AuthContext } from "../../providers/AuthProviders";
+// import Swal from "sweetalert2";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import SeatMap from "../../components/SeatMap"; 
+// import { FaMapMarkerAlt, FaBus, FaClock, FaCheckCircle, FaExclamationTriangle, FaChair, FaTimes } from "react-icons/fa";
+// import Swiper from "swiper";
+// import { Autoplay, Navigation, Pagination } from "swiper/modules";
+// import TicketCard from "../../components/TicketCard";
+// import { SwiperSlide } from "swiper/react";
+// import TicketSkeleton from "../TicketSkeleton";
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import SeatMap from "../../components/SeatMap"; 
 import { FaMapMarkerAlt, FaBus, FaClock, FaCheckCircle, FaExclamationTriangle, FaChair, FaTimes } from "react-icons/fa";
+
+// CORRECT SWIPER IMPORTS
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import TicketCard from "../../components/TicketCard";
+import TicketSkeleton from "../TicketSkeleton";
+
+// IMPORT SWIPER STYLES
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const TicketDetails = () => {
     const ticket = useLoaderData(); 
@@ -25,12 +51,31 @@ const TicketDetails = () => {
     const [bookingQty, setBookingQty] = useState(1);
 
     const { _id, title, from, to, transportType, price, quantity, perks, photo, departureDate, vendorEmail } = ticket;
-
+const [relatedTickets, setRelatedTickets] = useState([]);
+// const [loading, setLoading] = useState(true);
+const [loadingRelated, setLoadingRelated] = useState(true);
     // 1. Fetch Live Taken Seats
     useEffect(() => {
         axiosSecure.get(`/tickets/taken-seats/${_id}`)
             .then(res => setTakenSeats(res.data));
     }, [_id, axiosSecure]);
+
+    useEffect(() => {
+        if (!transportType) return;
+        
+        setLoadingRelated(true); 
+        axiosSecure.get(`/tickets`)
+            .then(res => {
+                const related = res.data.filter(t => 
+                    t.transportType === transportType && 
+                    t._id !== _id &&
+                    t.verificationStatus === 'approved'
+                );
+                setRelatedTickets(related);
+            })
+            .catch(err => console.error("Error fetching related tickets:", err))
+            .finally(() => setLoadingRelated(false)); 
+    }, [_id, transportType, axiosSecure]);
 
     // 2. Check if User already booked
     useEffect(() => {
@@ -71,6 +116,7 @@ const TicketDetails = () => {
             setBookingQty(selectedSeats.length);
         }
     }, [selectedSeats]);
+    
 
     // 4. Handle "Book Now" Click -> OPENS MODAL
     const handleBookClick = () => {
@@ -81,7 +127,7 @@ const TicketDetails = () => {
         document.getElementById('booking_modal').showModal();
     }
 
-    // 5. FINAL SUBMISSION (From Modal)
+    // 5. FINAL SUBMISSION - Modal
     const handleConfirmBooking = async (e) => {
         e.preventDefault();
 
@@ -142,6 +188,7 @@ const TicketDetails = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
                     
                     {/* LEFT COLUMN: Details */}
                     <div className="lg:col-span-2 space-y-8">
@@ -289,6 +336,99 @@ const TicketDetails = () => {
                     </form>
                 </div>
             </dialog>
+            {/* Insert this right after your main <div className="grid grid-cols-1 lg:grid-cols-3 gap-8"> ... </div> */}
+
+{/* Side-by-Side Wrapper for Overview and Reviews */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+    
+    {/* 1. Trip Overview Section */}
+    <div className="bg-white p-8 rounded-2xl shadow-card border border-gray-100 flex flex-col">
+        <h2 className="text-2xl font-bold text-secondary mb-4">Trip Overview</h2>
+        <p className="text-slate-600 leading-relaxed flex-grow">
+            Experience a seamless journey from <span className="font-semibold text-primary">{from}</span> to <span className="font-semibold text-primary">{to}</span> with our premium <span className="capitalize">{transportType}</span> service. 
+            This trip is highly rated for punctuality and passenger comfort. We ensure a safe environment 
+            with professional staff and well-maintained vehicles.
+        </p>
+    </div>
+
+    {/* 2. Passenger Reviews Section */}
+    <div className="bg-white p-8 rounded-2xl shadow-card border border-gray-100">
+        <h2 className="text-2xl font-bold text-secondary mb-6">Passenger Reviews</h2>
+        <div className="flex items-center gap-4 mb-4">
+            <div className="text-5xl font-extrabold text-primary">4.8</div>
+            <div>
+                <div className="rating rating-md">
+                    {[...Array(5)].map((_, i) => (
+                        <input 
+                            key={i} 
+                            type="radio" 
+                            name="rating-details" 
+                            className="mask mask-star-2 bg-orange-400" 
+                            checked={i === 4} 
+                            readOnly 
+                        />
+                    ))}
+                </div>
+                <p className="text-sm text-slate-400 mt-1">Based on 124 verified bookings</p>
+            </div>
+        </div>
+        {/* Progress Bars for a Professional Look */}
+        <div className="space-y-2 mt-4">
+            <div className="flex items-center gap-2 text-xs">
+                <span>Cleanliness</span>
+                <progress className="progress progress-primary w-full" value="95" max="100"></progress>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+                <span>Punctuality</span>
+                <progress className="progress progress-primary w-full" value="88" max="100"></progress>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/* 3. Related Items Section */}
+<div className="mt-16 mb-20">
+    <h2 className="text-2xl font-bold text-secondary mb-8">Related Routes You Might Like 🌟</h2>
+
+    {loadingRelated ? (
+        /* 1. Requirement: Skeleton loader while data is loading */
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => <TicketSkeleton key={i} />)}
+        </div>
+    ) : relatedTickets.length > 0 ? (
+        /* 2. Requirement: Real cards in a slider/Swiper */
+        <Swiper
+        // modules={[Autoplay, Navigation, Pagination]}
+            slidesPerView={1}
+            spaceBetween={20}
+            loop={relatedTickets.length > 4} 
+            autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+            }}
+            breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+            }}
+            modules={[Autoplay, Navigation, Pagination]}
+            className="mySwiper"
+        >
+            {relatedTickets.map((item) => (
+                <SwiperSlide key={item._id}>
+                    <div className="h-full pb-5 flex justify-center">
+                        {/* Requirement: All cards must have the same size and border radius */}
+                        <TicketCard ticket={item} />
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    ) : (
+        /* Fallback for professional visual flow */
+        <div className="text-center py-16 bg-base-100 rounded-2xl border border-dashed border-base-300">
+            <p className="text-slate-500 italic">No similar routes found at the moment. Try exploring other categories!</p>
+        </div>
+    )}
+</div>
 
         </div>
     );

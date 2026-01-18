@@ -7,6 +7,9 @@ TicketBari is a comprehensive full-stack MERN application designed to simplify t
 📂 Server Repository: [Link to Server Repo](https://github.com/KhMansura/Ticket-Bari-server.git)
 
 📂 Client Repository: [Link to Client Repo](https://github.com/KhMansura/Ticket-Bari-client.git)
+---
+## 🖼️ Screenshot 
+![Project Screenshot](../ticket-bari-client/public/assets/full-home.png)
 🚀 Purpose
 
 The primary goal of TicketBari is to bridge the gap between transport operators (Vendors) and travelers. It provides a secure, transparent, and user-friendly interface where:
@@ -75,3 +78,10 @@ Backend
     recharts: Data visualization charts for dashboards.
     react-tilt: 3D hover effects (optional).
     localforage / match-sorter: Utility dependencies.
+
+✨ Upcoming / Advanced Features
+    
+    🌓 Dynamic Dark Mode: Seamlessly switch between light and dark themes for better accessibility.
+    🔍 Advanced Filter & Sort: Filter tickets by price, vehicle category, or date for a better search experience.
+    📩 Email Confirmation: Instant automated email notifications for successful bookings and payments.
+    📊 Real-time Dashboard Sync: Auto-refetching data using TanStack Query to ensure stats are always up-to-date.

@@ -46,7 +46,22 @@ const Routes = () => {
             to: "Barisal",
             image: "https://i.ibb.co.com/RkGpYczc/images.jpg",
             desc: "Explore the Venice of Bengal and its floating markets."
-        }
+        },
+        {
+            id: 7,
+            from: "Dhaka",
+            to: "Rangamati",
+            image: "https://i.ibb.co.com/RGTQ5qJ6/images.jpg", 
+            desc: "Cruise through the emerald waters of Kaptai Lake and the Hanging Bridge."
+        },
+        {
+            id: 8,
+            from: "Dhaka",
+            to: "Srimangal",
+            image: "https://i.ibb.co.com/TqBPvzXP/images.jpg", 
+            desc: "Discover the tea capital of Bangladesh and the rain forests of Lawachara."
+        },
+    
     ];
 
     return (
@@ -66,7 +81,7 @@ const Routes = () => {
             <div className="max-w-7xl mx-auto px-4 -mt-16 relative z-20">
                 
                 {/* 2. Grid Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {popularRoutes.map((route) => (
                         <div key={route.id} className="card bg-base-100 shadow-card hover:shadow-2xl transition-all duration-300 border border-gray-100 group overflow-hidden h-full flex flex-col">
                             

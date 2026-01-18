@@ -4,7 +4,7 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 const Partners = () => {
-    // Real Logos: Airlines + Bus + Train
+    //  Airlines + Bus + Train
     const companies = [
          
         { 

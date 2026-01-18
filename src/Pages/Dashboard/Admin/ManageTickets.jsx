@@ -1,130 +1,17 @@
-// import { useState, useEffect } from "react";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
-// import Swal from "sweetalert2";
-// import { FaCheck, FaTimes, FaUndo } from "react-icons/fa";
 
-// const ManageTickets = () => {
-//     const [tickets, setTickets] = useState([]);
-//     const [loading, setLoading] = useState(true); // Added Loading State (Requirement: Additional)
-//     const axiosSecure = useAxiosSecure();
 
-//     useEffect(() => {
-//         fetchTickets();
-//     }, []);
-
-//     const fetchTickets = () => {
-//         setLoading(true);
-//         axiosSecure.get('/tickets') 
-//             .then(res => {
-//                 setTickets(res.data);
-//                 setLoading(false);
-//             })
-//             .catch(() => setLoading(false));
-//     };
-
-//     const handleStatus = (ticket, status) => {
-//         axiosSecure.patch(`/tickets/status/${ticket._id}`, { status })
-//             .then(res => {
-//                 if(res.data.modifiedCount > 0){
-//                     Swal.fire('Success', `Ticket ${status}!`, 'success');
-//                     fetchTickets();
-//                 }
-//             })
-//     };
-
-//     // Requirement: Show loading spinner
-//     if (loading) {
-//         return (
-//             <div className="flex justify-center items-center h-screen">
-//                 <span className="loading loading-spinner loading-lg text-primary"></span>
-//             </div>
-//         );
-//     }
-
-//     return (
-//         <div className="w-full px-10">
-//             <h2 className="text-3xl font-bold my-4">Manage Tickets: {tickets.length}</h2>
-//             <div className="overflow-x-auto">
-//                 <table className="table table-zebra w-full">
-//                     <thead className="bg-base-200">
-//                         <tr>
-//                             <th>Image</th>
-//                             <th>Title</th>
-//                             <th>Vendor</th>
-//                             <th>Status</th>
-//                             <th>Actions</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {tickets.map(ticket => (
-//                             <tr key={ticket._id}>
-//                                 <td>
-//                                     <div className="avatar">
-//                                         <div className="mask mask-squircle w-12 h-12">
-//                                             <img src={ticket.photo} alt="Ticket" />
-//                                         </div>
-//                                     </div>
-//                                 </td>
-//                                 <td>{ticket.title}</td>
-//                                 <td>{ticket.vendorEmail}</td>
-//                                 <td>
-//                                     <span className={`badge font-bold text-white p-3
-//                                         ${ticket.verificationStatus === 'approved' ? 'badge-success' : 
-//                                           ticket.verificationStatus === 'rejected' ? 'badge-error' : 'badge-warning'}`}>
-//                                         {ticket.verificationStatus || 'pending'}
-//                                     </span>
-//                                 </td>
-//                                 <td className="flex gap-2">
-//                                     {/* 1. Approve Button (Requirement 7b) */}
-//                                     {ticket.verificationStatus !== 'approved' && (
-//                                         <button 
-//                                             onClick={() => handleStatus(ticket, 'approved')} 
-//                                             className="btn btn-xs btn-success text-white"
-//                                             title="Approve">
-//                                             <FaCheck /> Approve
-//                                         </button>
-//                                     )}
-                                    
-//                                     {/* 2. Reject Button (Requirement 7b) */}
-//                                     {ticket.verificationStatus !== 'rejected' && (
-//                                         <button 
-//                                             onClick={() => handleStatus(ticket, 'rejected')} 
-//                                             className="btn btn-xs btn-error text-white"
-//                                             title="Reject">
-//                                             <FaTimes /> Reject
-//                                         </button>
-//                                     )}
-
-//                                     {/* Optional Undo Button (For fixing mistakes) */}
-//                                     {ticket.verificationStatus && ticket.verificationStatus !== 'pending' && (
-//                                         <button 
-//                                             onClick={() => handleStatus(ticket, 'pending')} 
-//                                             className="btn btn-xs btn-neutral text-white"
-//                                             title="Reset to Pending">
-//                                             <FaUndo /> Undo
-//                                         </button>
-//                                     )}
-//                                 </td>
-//                             </tr>
-//                         ))}
-//                     </tbody>
-//                 </table>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default ManageTickets;
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaCheck, FaTimes, FaUndo, FaTicketAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const ManageTickets = () => {
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
     const axiosSecure = useAxiosSecure();
+    const { user } = useContext(AuthContext);
+const isDemoAdmin = user?.email === "admin@ticketbari.com";
 
     useEffect(() => {
         fetchTickets();
@@ -248,6 +135,7 @@ const ManageTickets = () => {
                                             {ticket.verificationStatus !== 'approved' && (
                                                 <button 
                                                     onClick={() => handleStatus(ticket, 'approved')} 
+                                                    disabled={isDemoAdmin}
                                                     className="btn btn-sm btn-success text-white shadow-md hover:scale-105 transition-transform"
                                                     title="Approve Ticket">
                                                     <FaCheck />
@@ -258,6 +146,7 @@ const ManageTickets = () => {
                                             {ticket.verificationStatus !== 'rejected' && (
                                                 <button 
                                                     onClick={() => handleStatus(ticket, 'rejected')} 
+                                                    disabled={isDemoAdmin}
                                                     className="btn btn-sm btn-error text-white shadow-md hover:scale-105 transition-transform"
                                                     title="Reject Ticket">
                                                     <FaTimes />
@@ -268,6 +157,7 @@ const ManageTickets = () => {
                                             {ticket.verificationStatus && ticket.verificationStatus !== 'pending' && (
                                                 <button 
                                                     onClick={() => handleStatus(ticket, 'pending')} 
+                                                    disabled={isDemoAdmin}
                                                     className="btn btn-sm btn-ghost text-slate-400 hover:text-primary hover:bg-blue-50 border border-gray-200"
                                                     title="Reset to Pending">
                                                     <FaUndo />

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useQueryClient } from "@tanstack/react-query";
 
 const img_hosting_token = import.meta.env.VITE_IMGBB_API_KEY;
 
@@ -13,6 +14,7 @@ const UpdateTicket = () => {
     const { register, handleSubmit, setValue } = useForm();
     const [loading, setLoading] = useState(true);
     const [oldPhoto, setOldPhoto] = useState(null);
+    const queryClient = useQueryClient();
 
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
@@ -65,6 +67,7 @@ const UpdateTicket = () => {
         // 4. Send Update Request
         const res = await axiosSecure.patch(`/tickets/${id}`, updatedItem);
         if (res.data.modifiedCount > 0) {
+            queryClient.invalidateQueries(['vendor-stats', user?.email]);
             Swal.fire('Success', 'Ticket Updated Successfully!', 'success');
             navigate('/dashboard/my-added-tickets');
         }
