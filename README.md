@@ -9,65 +9,114 @@ TicketBari is a comprehensive full-stack MERN application designed to simplify t
 📂 Client Repository: [Link to Client Repo](https://github.com/KhMansura/Ticket-Bari-client.git)
 ---
 ## 🖼️ Screenshot 
+<<<<<<< HEAD
 ![Project Screenshot](../ticket-bari-client/public/assets/full-home.png)
+=======
+![Project Home](https://raw.githubusercontent.com/KhMansura/ticket-bari-client/main/public/assets/full-home.png)
+
+>>>>>>> 27626f215ac02b72904ab84c4f31c1b155e949d1
 🚀 Purpose
 
 The primary goal of TicketBari is to bridge the gap between transport operators (Vendors) and travelers. It provides a secure, transparent, and user-friendly interface where:
+- Users can easily search, book, and pay for tickets.
+- Vendors can manage their fleet, tickets, and bookings efficiently.
+- Admins maintain platform integrity by verifying vendors and tickets.
+---
 
-    . Users can easily search, book, and pay for tickets.
-    . Vendors can manage their fleet, tickets, and bookings efficiently.
-    . Admins maintain platform integrity by verifying vendors and tickets.
+## ✨ Key Features 
+### 🌍 General 
+- Secure Firebase Authentication (Email/Password + Google)
+- Role‑Based Access Control (User, Vendor, Admin)
+- Dynamic Home Page with Swiper.js banner & 3D Coverflow Ads
+-  Fully responsive UI (Mobile, Tablet, Desktop)
 
-✨ Key Features
-🌍 General
-     Secure Authentication: Email/Password & Google Social Login protected by Firebase.
-     Role-Based Access Control (RBAC): Distinct dashboards for User, Vendor, and Admin.
-     Dynamic Home Page: Features a Swiper.js banner, Admin-controlled Advertisement section with 3D Coverflow effects, and a Partners showcase.
-     Responsive Design: Fully optimized for Mobile, Tablet, and Desktop devices using Tailwind CSS & DaisyUI.
+  ### 👤 User Features - Real‑time seat availability check
+  - Interactive seat map (A1, B2, etc.)
+  - Booking history with status tracking
+  - Stripe payment gateway
+  - PDF E‑Ticket download
+  - Cancel pending bookings
 
-👤 User Features
-    Smart Booking System: Real-time seat availability check and validation.
-    Live Seat Map: Interactive visual grid to select specific seats (e.g., A1, B2).
-    My Bookings: detailed history with status tracking (Pending/Accepted/Paid).
-    Secure Payments: Integrated Stripe Payment Gateway for seamless transactions.
-    E-Ticket Download: One-click PDF Ticket generation after successful payment.
-    Booking Cancellation: Users can cancel "Pending" bookings instantly.
+ ### 🏪 Vendor Features 
+ -  Add, update, delete tickets (ImgBB image hosting)
+ -  Accept/Reject booking requests
+ -  Analytics dashboard with charts
+ -  Real‑time booking updates
 
-🏪 Vendor Features
+ ### 🛡️ Admin Features 
+- Approve/Reject vendor tickets 
+- Promote users to Admin/Vendor 
+- Mark vendors as “Fraud” 
+- Control homepage advertisements
+-  Platform‑wide statistics
+  ---
+   ## 🛠️ Technologies Used 
+   ### **Frontend** 
+   - React.js
+   - Tailwind CSS
+   -  DaisyUI - Swiper.js
+   -  Axios
+   -  Firebase Auth
+   -  React Router DOM
+   -  React Hook Form
+   -  SweetAlert2
+   -  React Icons
+ ### **Backend** 
+ - Node.js
+ - Express.js
+ - MongoDB
+ - Firebase Admin SDK
+ - Stripe
+ - Dotenv
+ - CORS
+     ---
+      ## 📦 NPM Packages Included
+   - @stripe/react-stripe-js
+   - @stripe/stripe-js
+   - firebase
+   - firebase-admin
+   - swiper
+   - jspdf
+   - recharts
+   - react-tilt
+   - localforage
+   - match-sorter
+     ---
+     ## 🧪 Environment Variables
+     ### **Client (.env)**
+     PORT=5000
+MONGO_URI=your_mongo_uri
+STRIPE_SECRET_KEY=your_stripe_key
+FIREBASE_PROJECT_ID=your_project_id
 
-    Ticket Management: Add, Update, or Delete tickets with image hosting via ImgBB.
-    Booking Requests: Accept or Reject booking requests from users.
-    Analytics Dashboard: Visual charts showing Total Revenue, Tickets Sold, and Booking Stats.
-    Real-time Updates: Instant status changes reflect on the user's dashboard.
 
-🛡️ Admin Features
+---
 
-    Content Moderation: Approve or Reject tickets added by vendors before they go live.
-    User Management: Promote users to Admin/Vendor or Mark Vendors as "Fraud" to ban them.
-    Advertisement Control: Toggle "Featured Trips" on the homepage directly from the dashboard.
-    Stats Overview: Monitor platform-wide activity.
+## 🛠️ How to Run the Project Locally
 
-🛠️ Technologies Used
-Frontend
+### 1. Clone the repositories
+```bash
+git clone https://github.com/KhMansura/Ticket-Bari-client.git
+git clone https://github.com/KhMansura/Ticket-Bari-server.git
 
-    React.js: Component-based UI architecture.
-    Tailwind CSS & DaisyUI: For modern, responsive styling.
-    Swiper.js: For interactive sliders and carousel effects.
-    Axios: For secure HTTP requests.
-    Firebase Auth: For secure user authentication.
-    React Router DOM: For seamless navigation.
-    React Hook Form: For efficient form handling.
-    SweetAlert2: For beautiful popup notifications.
-    React-Icons: For vector icons.
+2. Install dependencies
+   cd Ticket-Bari-client
+npm install
 
-Backend
-    Node.js & Express.js: Robust RESTful API development.
-    MongoDB: NoSQL database for flexible data storage.
-    Firebase Admin SDK: Server-side token verification (High-level security).
-    Stripe: Secure payment processing.
-    Dotenv: Environment variable management.
-    Cors: Cross-origin resource sharing.
+cd ../Ticket-Bari-server
+npm install
+3. Add environment variables
+Create .env files in both client and server folders (see above).
+4. Start the development servers
+Client
+npm run dev
+Server
+npm start
+5. Open in browser
+http://localhost:5173
+```
 
+<<<<<<< HEAD
 📦 NPM Packages Included
 
     @stripe/react-stripe-js / @stripe/stripe-js: Payment integration.
@@ -85,3 +134,5 @@ Backend
     🔍 Advanced Filter & Sort: Filter tickets by price, vehicle category, or date for a better search experience.
     📩 Email Confirmation: Instant automated email notifications for successful bookings and payments.
     📊 Real-time Dashboard Sync: Auto-refetching data using TanStack Query to ensure stats are always up-to-date.
+=======
+>>>>>>> 27626f215ac02b72904ab84c4f31c1b155e949d1
